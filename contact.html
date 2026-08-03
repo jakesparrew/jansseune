@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="nl-BE">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Maak een afspraak | Jansseune &amp; Co</title>
+  <meta name="description" content="Contacteer boekhoudkantoor Jansseune & Co: bel 050 22 22 28, mail ides@jansseune.eu of bezoek een van onze kantoren in Brugge, Torhout, Oostende of Vichte.">
+  <link rel="canonical" href="https://www.jansseune.eu/contact.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Contact | Jansseune & Co">
+  <meta property="og:description" content="Maak een afspraak: bel 050 22 22 28 of mail ides@jansseune.eu. Kantoren in Brugge, Torhout, Oostende en Vichte.">
+  <meta property="og:url" content="https://www.jansseune.eu/contact.html">
+  <meta property="og:locale" content="nl_BE">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Ga naar inhoud</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="index.html">Jansseune<span class="amp">&amp;</span>Co
+        <small>Boekhouding &middot; Fiscaliteit</small>
+      </a>
+      <button class="nav-toggle" aria-label="Menu openen of sluiten" aria-expanded="false" aria-controls="site-nav">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="Hoofdnavigatie">
+        <a href="diensten.html">Diensten</a>
+        <a href="starters.html">Starters</a>
+        <a href="tarieven.html">Tarieven</a>
+        <a href="over-ons.html">Over ons</a>
+        <a href="nieuws.html">Nieuws</a>
+        <a class="btn btn--primary" href="contact.html" aria-current="page">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow" data-intro style="--i:0">Contact</p>
+        <h1 data-intro style="--i:1">Laten we <em class="amp">kennismaken</em></h1>
+        <p class="lead" data-intro style="--i:2">Een vraag, een offerte of meteen een afspraak? Bel, mail of gebruik het formulier &mdash; we antwoorden snel. Het eerste gesprek is altijd gratis en vrijblijvend.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="contact-grid">
+
+          <div class="contact-info reveal">
+            <div class="contact-block">
+              <p class="label">Bel ons</p>
+              <a class="big" href="tel:+3250222228">050 22 22 28</a>
+              <p>Bereikbaar tijdens kantooruren</p>
+            </div>
+            <div class="contact-block">
+              <p class="label">Mail ons</p>
+              <a class="big" href="mailto:ides@jansseune.eu">ides@jansseune.eu</a>
+              <p>U krijgt snel een persoonlijk antwoord</p>
+            </div>
+            <div class="contact-block">
+              <p class="label">Kantoren &mdash; consultaties op afspraak</p>
+              <p><b style="color:var(--ink)">Brugge</b> (zetel) &mdash; Sint-Pietersstatiedreef 10, 8000 Brugge<br>
+              <b style="color:var(--ink)">Torhout</b> &mdash; Hugo Verriestlaan 21, 8820 Torhout<br>
+              <b style="color:var(--ink)">Oostende</b> &mdash; Ka&iuml;rostraat 47, 8400 Oostende<br>
+              <b style="color:var(--ink)">Vichte</b> &mdash; Molendreef 16, 8570 Vichte</p>
+            </div>
+            <div class="contact-block">
+              <p class="label">Ondernemingsgegevens</p>
+              <p>Jansseune &amp; Co BV<br>BTW BE 0433.318.596<br>Erkend lid ITAA</p>
+            </div>
+          </div>
+
+          <form class="form reveal" id="contact-form" novalidate style="--d:.15s">
+            <div class="field">
+              <label for="f-naam">Naam <b>*</b></label>
+              <input type="text" id="f-naam" name="naam" required autocomplete="name">
+              <span class="error-msg">Vul uw naam in.</span>
+            </div>
+            <div class="field">
+              <label for="f-email">E-mail <b>*</b></label>
+              <input type="email" id="f-email" name="email" required autocomplete="email">
+              <span class="error-msg">Vul een geldig e-mailadres in.</span>
+            </div>
+            <div class="field">
+              <label for="f-telefoon">Telefoon</label>
+              <input type="tel" id="f-telefoon" name="telefoon" autocomplete="tel">
+            </div>
+            <div class="field">
+              <label for="f-onderwerp">Onderwerp</label>
+              <select id="f-onderwerp" name="onderwerp">
+                <option value="Kennismakingsgesprek">Kennismakingsgesprek</option>
+                <option value="Offerte aanvragen">Offerte aanvragen</option>
+                <option value="Ik start een zaak">Ik start een zaak</option>
+                <option value="Overstappen van boekhouder">Overstappen van boekhouder</option>
+                <option value="Personenbelasting">Personenbelasting</option>
+                <option value="Andere vraag">Andere vraag</option>
+              </select>
+            </div>
+            <div class="field field--full">
+              <label for="f-bericht">Uw bericht <b>*</b></label>
+              <textarea id="f-bericht" name="bericht" required placeholder="Vertel kort iets over uw zaak of uw vraag&hellip;"></textarea>
+              <span class="error-msg">Schrijf een kort bericht.</span>
+            </div>
+            <div class="form-status" role="status" aria-live="polite"></div>
+            <div class="form-footer">
+              <button class="btn btn--brass" type="submit">Verstuur bericht <span class="arrow">&rarr;</span></button>
+              <small>Bij verzenden opent uw e-mailprogramma met dit bericht, gericht aan ides@jansseune.eu. Uw gegevens worden nergens anders bewaard &mdash; zie ons <a href="privacy.html" style="text-decoration:underline">privacybeleid</a>.</small>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="container">
+        <div class="map-frame reveal">
+          <iframe
+            src="https://maps.google.com/maps?q=Sint-Pietersstatiedreef%2010%2C%208000%20Brugge&z=15&output=embed"
+            title="Kaart — Jansseune & Co, Sint-Pietersstatiedreef 10, 8000 Brugge"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen></iframe>
+        </div>
+        <p class="reveal" style="margin-top:1rem;font-size:.85rem;color:var(--muted)">Maatschappelijke zetel: Sint-Pietersstatiedreef 10, 8000 Brugge &mdash; parkeren kan vlakbij het kantoor.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <a class="brand" href="index.html">Jansseune<span class="amp">&amp;</span>Co
+            <small>Boekhouding &middot; Fiscaliteit</small>
+          </a>
+          <p class="tagline">&ldquo;Uw boekhouding, onze zorg!&rdquo;</p>
+          <p>Boekhoudkantoor met meer dan 20 jaar ervaring in boekhouding, fiscaliteit en begeleiding van ondernemers in West-Vlaanderen.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigatie</h4>
+          <ul>
+            <li><a href="diensten.html">Diensten</a></li>
+            <li><a href="starters.html">Starters</a></li>
+            <li><a href="tarieven.html">Tarieven</a></li>
+            <li><a href="over-ons.html">Over ons</a></li>
+            <li><a href="nieuws.html">Nieuws</a></li>
+            <li><a href="faq.html">Veelgestelde vragen</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Diensten</h4>
+          <ul>
+            <li><a href="diensten.html#opstart">Opstart van uw zaak</a></li>
+            <li><a href="diensten.html#boekhouding">Boekhouding</a></li>
+            <li><a href="diensten.html#fiscaliteit">Fiscaliteit &amp; aangiften</a></li>
+            <li><a href="diensten.html#advies">Advies &amp; organisatie</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kantoren</h4>
+          <address><b>Brugge</b> (zetel)<br>Sint-Pietersstatiedreef 10, 8000 Brugge</address>
+          <address><b>Torhout</b><br>Hugo Verriestlaan 21, 8820 Torhout</address>
+          <address><b>Oostende</b><br>Ka&iuml;rostraat 47, 8400 Oostende</address>
+          <address><b>Vichte</b><br>Molendreef 16, 8570 Vichte</address>
+          <address style="margin-top:1rem"><a href="tel:+3250222228">050 22 22 28</a><br><a href="mailto:ides@jansseune.eu">ides@jansseune.eu</a></address>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; <span data-year>2026</span> Jansseune &amp; Co BV &middot; BTW BE 0433.318.596 &middot; Erkend lid ITAA</p>
+        <ul>
+          <li><a href="privacy.html">Privacy &amp; cookies</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
