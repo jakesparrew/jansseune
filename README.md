@@ -29,10 +29,65 @@ Gewoon `index.html` openen in een browser volstaat. Of met een mini-server:
 npx serve .
 ```
 
-## Publiceren via GitHub Pages
+## Publiceren
+
+### Huidige situatie (gecontroleerd op 3 augustus 2026)
+
+| | |
+|---|---|
+| Domein | `jansseune.eu` → A-record `5.134.4.113` |
+| Hosting | **Combell** (`linweb415.webhosting.be`, nginx) |
+| Nameservers | `ns1.combell.eu`, `ns3/ns4.combell.net` |
+| Huidige site | WordPress met Avada-thema (Yoast SEO) |
+| Geïndexeerde URL's | enkel `/` en `/faq-items/` |
+
+### Optie A — bij Combell zetten (aanbevolen, domein staat er al)
+
+1. Log in op het Combell-controlepaneel → **FTP / Bestandsbeheer**.
+2. Maak eerst een **back-up** van de bestaande WordPress-installatie.
+3. Upload de volledige inhoud van deze repo naar de webroot (`/www` of `httpdocs`).
+4. Het meegeleverde **`.htaccess`** regelt automatisch:
+   - 301-redirect naar `https://www.` (loop-veilig geschreven, ook achter de proxy van Combell),
+   - 301-redirects van de oude WordPress-URL's (`/faq-items/` → `/faq.html`, `/author/jansseune/` → `/`, feeds, categorieën),
+   - de 404-pagina, compressie en browsercaching.
+
+### Optie B — GitHub Pages
 
 1. Repo → **Settings → Pages** → Source: `main` branch, `/ (root)`.
-2. Het `CNAME`-bestand bevat al `www.jansseune.eu`; verwijs de DNS van het domein naar GitHub Pages (CNAME-record `www` → `jakesparrew.github.io`, A-records voor apex naar de GitHub Pages-IP's).
+2. Pas de DNS bij Combell aan: CNAME `www` → `jakesparrew.github.io` + A-records voor het apex-domein naar de GitHub Pages-IP's.
+3. Let op: `.htaccess` werkt **niet** op GitHub Pages — de redirects van de oude URL's vervallen dan. `.nojekyll` staat klaar zodat bestanden ongewijzigd geserveerd worden.
+
+## Google Search Console & Bedrijfsprofiel
+
+### Verificatie
+
+Het bestand **`googlec0549e11e631b95e.html`** staat in de webroot en bevat exact:
+
+```
+google-site-verification: googlec0549e11e631b95e.html
+```
+
+Dit werkt pas zodra de site live staat op het domein — Google moet het kunnen ophalen op
+`https://www.jansseune.eu/googlec0549e11e631b95e.html` (geeft momenteel nog 404, want de oude WordPress-site staat er nog).
+
+Twee mogelijkheden:
+
+- **Nu al verifiëren zonder de site te vervangen:** upload enkel dit ene bestand via FTP naar de webroot van de huidige WordPress-site. Verificatie werkt dan meteen, en je kunt de site later rustig migreren.
+- **Na migratie verifiëren:** zet de nieuwe site live (Optie A) en klik dan op *Verifiëren* in Search Console.
+
+> **Alternatief dat sterker is:** verifieer een **Domein-property** via een DNS TXT-record bij Combell. Die dekt `http`/`https` én `www`/non-`www` tegelijk, en blijft geldig bij elke verhuis van hosting.
+
+Na verificatie: dien **`https://www.jansseune.eu/sitemap.xml`** in bij *Sitemaps*.
+
+### Google Bedrijfsprofiel (bestaat al)
+
+Grootste lokale winst zit hier — te doen door de eigenaar:
+
+1. Zet in het profiel de **website** op `https://www.jansseune.eu/`.
+2. Zijn er **aparte profielen per vestiging** (Brugge, Torhout, Oostende, Vichte)? Laat elk profiel doorverwijzen naar zijn eigen stadspagina (`/boekhouder-brugge.html` enz.). Bestaat er nog maar één profiel, dan zijn de andere drie vestigingen toevoegen de sterkste ingreep die er is.
+3. Zorg dat **naam, adres en telefoon exact** overeenkomen met wat op de site staat (NAP-consistentie). Het telefoonnummer `050 22 22 28` en de adressen in de footer zijn de referentie.
+4. Categorie: *Boekhouder* als hoofdcategorie, *Belastingadviseur* / *Accountant* als extra.
+5. De LinkedIn-pagina (`linkedin.com/showcase/jansseune-&-co/`) staat al als `sameAs` in de structured data en in de footer — dat versterkt de entiteitsherkenning bij Google.
 
 ## Vóór livegang nakijken
 
@@ -62,14 +117,13 @@ De site is geoptimaliseerd op basis van DataForSEO-zoekvolumedata (Google Ads, B
 | `nieuws-e-facturatie-peppol.html` | peppol (60.500!), e-facturatie (1.300) |
 | `nieuws-starten-in-bijberoep.html` | zelfstandige in bijberoep (4.400) |
 
-**Technisch aanwezig:** canonicals, sitemap met lastmod, robots.txt, Open Graph + Twitter cards met og-afbeelding (`assets/og.png`), theme-color, BreadcrumbList/WebSite/AccountingService (met 4 vestigingen)/Article/FAQPage JSON-LD, lokale landingspagina's per kantoor met eigen LocalBusiness-schema en areaServed.
+**Technisch aanwezig:** canonicals, sitemap met lastmod, robots.txt, Open Graph + Twitter cards met og-afbeelding (`assets/og.png`), theme-color, BreadcrumbList/WebSite/AccountingService (met 4 vestigingen)/Article/FAQPage JSON-LD, `sameAs` naar LinkedIn, lokale landingspagina's per kantoor met eigen LocalBusiness-schema en areaServed, 301-redirects van de oude WordPress-URL's via `.htaccess`.
 
 **Nog te doen na livegang (grootste hefbomen):**
-1. **Google Search Console** — verifieer het domein en dien `sitemap.xml` in.
-2. **Google Bedrijfsprofiel (Business Profile)** — maak/claim een profiel per kantoor (Brugge, Torhout, Oostende, Vichte) en verwijs naar de bijhorende stadspagina. Dé belangrijkste lokale rankingfactor.
-3. **Bing Webmaster Tools** — zelfde oefening, import vanuit GSC kan.
-4. **Vermeldingen/backlinks** — zorg dat naam-adres-telefoon (NAP) identiek is op Gouden Gids, Trends Top, openthebox, ITAA-ledenlijst, Unizo/Voka, en vraag een link naar jansseune.eu.
-5. **Nieuws bijhouden** — het Peppol-artikel mikt op 60k+ zoekopdrachten/maand; regelmatig een actueel artikel toevoegen houdt de site levend voor Google.
+1. **Google Search Console + Bedrijfsprofiel** — zie het hoofdstuk hierboven. Dit zijn veruit de belangrijkste stappen.
+2. **Bing Webmaster Tools** — zelfde oefening, import vanuit Search Console kan in één klik.
+3. **Vermeldingen/backlinks** — zorg dat naam-adres-telefoon (NAP) identiek is op Gouden Gids, Trends Top, openthebox, de ITAA-ledenlijst en Unizo/Voka, en vraag telkens een link naar jansseune.eu.
+4. **Nieuws bijhouden** — het Peppol-artikel mikt op 60k+ zoekopdrachten/maand; regelmatig een actueel artikel toevoegen houdt de site levend voor Google.
 
 ## Design
 

@@ -1,0 +1,71 @@
+# =============================================================
+# Jansseune & Co — jansseune.eu
+# Voor Apache-hosting (o.a. Combell). Op GitHub Pages wordt dit
+# bestand genegeerd — dan zijn de redirects hieronder niet actief.
+# =============================================================
+
+RewriteEngine On
+
+# -------------------------------------------------------------
+# 1. Canonieke host: altijd https:// en met www.
+#    Loop-veilig geschreven: er wordt enkel omgeleid wanneer
+#    zeker is dat het verzoek NIET al via https binnenkwam
+#    (belangrijk achter een reverse proxy zoals bij Combell).
+# -------------------------------------------------------------
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+RewriteRule ^ https://www.jansseune.eu%{REQUEST_URI} [R=301,L]
+
+RewriteCond %{HTTP_HOST} !^www\.jansseune\.eu$ [NC]
+RewriteRule ^ https://www.jansseune.eu%{REQUEST_URI} [R=301,L]
+
+# -------------------------------------------------------------
+# 2. 301-redirects van de oude WordPress-site
+#    Zo blijven bestaande Google-posities en externe links werken.
+# -------------------------------------------------------------
+RewriteRule ^faq-items/?$                /faq.html          [R=301,L]
+RewriteRule ^author/jansseune/?$         /                  [R=301,L]
+RewriteRule ^feed/?$                     /nieuws.html       [R=301,L]
+RewriteRule ^category/.*$                /nieuws.html       [R=301,L]
+RewriteRule ^tag/.*$                     /nieuws.html       [R=301,L]
+
+# Oude WordPress-systeempaden netjes afsluiten
+RewriteRule ^(wp-admin|wp-login\.php|xmlrpc\.php)   /  [R=301,L]
+
+# -------------------------------------------------------------
+# 3. Foutpagina
+# -------------------------------------------------------------
+ErrorDocument 404 /404.html
+
+# -------------------------------------------------------------
+# 4. Compressie — sneller laden, beter voor Core Web Vitals
+# -------------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# -------------------------------------------------------------
+# 5. Browsercaching
+# -------------------------------------------------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css            "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/png           "access plus 1 year"
+  ExpiresByType image/svg+xml       "access plus 1 year"
+  ExpiresByType text/html           "access plus 1 hour"
+</IfModule>
+
+# -------------------------------------------------------------
+# 6. Basisbeveiliging
+# -------------------------------------------------------------
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+<FilesMatch "^\.">
+  Require all denied
+</FilesMatch>
