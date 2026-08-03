@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="nl-BE">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hoeveel hou ik netto over als zelfstandige? | Jansseune &amp; Co</title>
+  <meta name="description" content="Bereken gratis wat u netto overhoudt als zelfstandige in hoofd- of bijberoep: sociale bijdragen, belastingen en wat u maandelijks opzijzet. Cijfers 2026.">
+  <link rel="canonical" href="https://www.jansseune.eu/rekentool.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Rekentool: hoeveel hou ik netto over als zelfstandige?">
+  <meta property="og:description" content="Bereken in enkele seconden uw sociale bijdragen, belastingen en netto-inkomen als zelfstandige. Gratis tool van boekhoudkantoor Jansseune & Co.">
+  <meta property="og:url" content="https://www.jansseune.eu/rekentool.html">
+  <meta property="og:locale" content="nl_BE">
+  <meta property="og:site_name" content="Jansseune &amp; Co">
+  <meta property="og:image" content="https://www.jansseune.eu/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.jansseune.eu/assets/og.png">
+  <meta name="theme-color" content="#10202f">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Rekentool netto-inkomen zelfstandigen",
+    "url": "https://www.jansseune.eu/rekentool.html",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Alle browsers",
+    "inLanguage": "nl-BE",
+    "isAccessibleForFree": true,
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+    "provider": { "@type": "Organization", "name": "Jansseune & Co", "url": "https://www.jansseune.eu/" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.jansseune.eu/"},{"@type":"ListItem","position":2,"name":"Rekentool","item":"https://www.jansseune.eu/rekentool.html"}]}
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Ga naar inhoud</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="index.html">Jansseune<span class="amp">&amp;</span>Co
+        <small>Boekhouding &middot; Fiscaliteit</small>
+      </a>
+      <button class="nav-toggle" aria-label="Menu openen of sluiten" aria-expanded="false" aria-controls="site-nav">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="Hoofdnavigatie">
+        <a href="diensten.html">Diensten</a>
+        <a href="starters.html">Starters</a>
+        <a href="tarieven.html">Tarieven</a>
+        <a href="rekentool.html" aria-current="page">Rekentool</a>
+        <a href="over-ons.html">Over ons</a>
+        <a href="nieuws.html">Nieuws</a>
+        <a class="btn btn--primary" href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow" data-intro style="--i:0">Gratis rekentool</p>
+        <h1 data-intro style="--i:1">Hoeveel hou ik <em class="amp">netto</em> over als zelfstandige?</h1>
+        <p class="lead" data-intro style="--i:2">De vraag die elke starter stelt. Vul uw verwachte omzet en kosten in en zie meteen wat er na sociale bijdragen en belastingen overblijft &mdash; en hoeveel u best elke maand opzijzet.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="calc">
+
+          <form class="calc-form reveal" id="rekentool" novalidate>
+            <div class="calc-field">
+              <label for="r-omzet">Verwachte jaaromzet</label>
+              <div class="calc-input">
+                <span class="prefix">&euro;</span>
+                <input type="number" id="r-omzet" name="omzet" value="60000" min="0" step="1000" inputmode="numeric">
+              </div>
+              <p class="hint">Alles wat u factureert op een jaar, exclusief btw.</p>
+            </div>
+
+            <div class="calc-field">
+              <label for="r-kosten">Beroepskosten per jaar</label>
+              <div class="calc-input">
+                <span class="prefix">&euro;</span>
+                <input type="number" id="r-kosten" name="kosten" value="12000" min="0" step="500" inputmode="numeric">
+              </div>
+              <p class="hint">Wagen, materiaal, verzekeringen, kantoor, software&hellip; Nog niet de sociale bijdragen &mdash; die rekenen wij er zelf bij.</p>
+            </div>
+
+            <div class="calc-field">
+              <span class="calc-legend" id="statuut-label">Uw statuut</span>
+              <div class="calc-toggle" role="group" aria-labelledby="statuut-label">
+                <input type="radio" id="r-hoofd" name="statuut" value="hoofdberoep" checked>
+                <label for="r-hoofd">Hoofdberoep</label>
+                <input type="radio" id="r-bij" name="statuut" value="bijberoep">
+                <label for="r-bij">Bijberoep</label>
+              </div>
+              <p class="hint">In bijberoep gelden dezelfde percentages, maar geldt er g&eacute;&eacute;n minimumbijdrage.</p>
+            </div>
+
+            <div class="calc-field">
+              <label for="r-gemeente">Gemeentebelasting</label>
+              <div class="calc-input calc-input--suffix">
+                <input type="number" id="r-gemeente" name="gemeente" value="7" min="0" max="10" step="0.5" inputmode="decimal">
+                <span class="suffix">%</span>
+              </div>
+              <p class="hint">Verschilt per gemeente. Meestal tussen 6 en 8 procent; 7% is een goed gemiddelde.</p>
+            </div>
+          </form>
+
+          <aside class="calc-result reveal" style="--d:.1s" aria-live="polite">
+            <p class="label">U houdt netto over</p>
+            <p class="calc-big" id="uit-netto">&euro; 0</p>
+            <p class="calc-sub">of <b id="uit-netto-maand">&euro; 0</b> per maand</p>
+
+            <div class="calc-bar" aria-hidden="true">
+              <span class="seg-netto" id="bar-netto" style="flex-basis:0"></span>
+              <span class="seg-sociaal" id="bar-sociaal" style="flex-basis:0"></span>
+              <span class="seg-belasting" id="bar-belasting" style="flex-basis:0"></span>
+            </div>
+            <p class="calc-legend-items">
+              <span class="k-netto">Voor u</span>
+              <span class="k-sociaal">Sociale bijdragen</span>
+              <span class="k-belasting">Belastingen</span>
+            </p>
+
+            <div class="calc-rows">
+              <div class="calc-row">
+                <span>Brutowinst<small>omzet min beroepskosten</small></span>
+                <b id="uit-brutowinst">&euro; 0</b>
+              </div>
+              <div class="calc-row">
+                <span>Sociale bijdragen<small>incl. beheerskosten &mdash; <span id="uit-sociaal-kwartaal">&euro; 0</span> per kwartaal</small></span>
+                <b id="uit-sociaal">&minus; &euro; 0</b>
+              </div>
+              <div class="calc-row">
+                <span>Personenbelasting<small>waarvan <span id="uit-gemeente">&euro; 0</span> gemeentebelasting</small></span>
+                <b id="uit-belasting">&minus; &euro; 0</b>
+              </div>
+              <div class="calc-row calc-row--total">
+                <span>Netto voor u<small>effectieve druk: <span id="uit-druk">0%</span></small></span>
+                <b id="uit-eindnetto">&euro; 0</b>
+              </div>
+            </div>
+
+            <p class="calc-tip">
+              <b>Zet maandelijks <span id="uit-opzij">&euro; 0</span> opzij.</b>
+              Dan staat u nooit voor verrassingen wanneer de afrekening van uw sociale bijdragen en belastingen binnenvalt.
+            </p>
+          </aside>
+
+        </div>
+
+        <div class="calc-assumptions reveal">
+          <h3>Waarop is deze berekening gebaseerd?</h3>
+          <ul>
+            <li>Sociale bijdragen volgens het barema <b>2026</b>: 20,5% tot &euro;75.024,54 en 14,16% daarboven, plus ongeveer 4% beheerskosten van uw sociaal verzekeringsfonds.</li>
+            <li>Personenbelasting volgens de schijven van <b>aanslagjaar 2027</b> (inkomsten 2026): 25%, 40%, 45% en 50%, met een belastingvrije som van &euro;11.180.</li>
+            <li>Uw sociale bijdragen zijn <b>aftrekbaar</b> als beroepskost &mdash; dat is hier correct verrekend.</li>
+            <li>De berekening gaat uit van een <b>alleenstaande zonder personen ten laste</b>, zonder andere inkomsten en zonder specifieke aftrekposten.</li>
+            <li>Als <b>starter</b> betaalt u de eerste jaren voorlopige bijdragen, die later herzien worden op basis van uw werkelijke inkomen.</li>
+          </ul>
+          <p class="calc-note">Deze tool geeft een <strong>indicatie</strong> en is geen fiscaal advies. Kinderen ten laste, het huwelijksquoti&euml;nt, VAPZ, investeringsaftrek of een vennootschapsstructuur kunnen het resultaat sterk be&iuml;nvloeden &mdash; vaak in uw voordeel. Wilt u weten wat er in <em>uw</em> situatie mogelijk is? <a href="contact.html" style="color:var(--brass-2);border-bottom:1px solid var(--brass-2)">Vraag een gratis gesprek aan</a>.</p>
+        </div>
+
+        <div class="prose reveal" style="margin-top:clamp(3rem,6vw,4.5rem)">
+          <h2>Hoe leest u dit resultaat?</h2>
+          <p>De meeste starters onderschatten hoeveel er van hun omzet naar sociale bijdragen en belastingen gaat. Het venijn zit in de timing: uw sociale bijdragen betaalt u per kwartaal, maar de <strong>herziening</strong> op basis van uw werkelijke inkomen volgt pas jaren later. En de personenbelasting wordt pas afgerekend na uw aangifte.</p>
+          <p>Daarom is die ene regel onderaan de belangrijkste van deze hele pagina: <strong>zet elke maand het aangegeven bedrag opzij op een aparte rekening</strong>. Wie dat vanaf zijn eerste factuur doet, komt nooit in de problemen wanneer de afrekening binnenvalt.</p>
+
+          <h2>Waarom uw echte cijfer meestal beter is</h2>
+          <p>Deze tool rekent bewust voorzichtig: hij houdt geen rekening met uw gezinssituatie of met de fiscale technieken die een boekhouder voor u kan inzetten. In de praktijk zien wij vaak een merkbaar gunstiger resultaat, bijvoorbeeld via:</p>
+          <ul>
+            <li><strong>Kinderen ten laste</strong> &mdash; verhogen uw belastingvrije som aanzienlijk;</li>
+            <li><strong>VAPZ</strong> (vrij aanvullend pensioen zelfstandigen) &mdash; aftrekbaar &eacute;n u bouwt pensioen op;</li>
+            <li><strong>Investeringsaftrek</strong> op bepaalde investeringen;</li>
+            <li><strong>Een vennootschap</strong>, wanneer uw winst een bepaald niveau bereikt.</li>
+          </ul>
+          <p>Wilt u weten waar &uacute; staat? Bekijk ook onze <a href="tarieven.html">tarieven</a> of lees hoe wij <a href="starters.html">starters begeleiden</a>. Start u naast een job, dan is ons artikel over <a href="nieuws-starten-in-bijberoep.html">starten in bijberoep</a> een goed vertrekpunt.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="container">
+        <div class="reveal">
+          <h2>Benieuwd naar uw <span class="amp">&eacute;chte</span> cijfer?</h2>
+          <p>In een gratis gesprek van een halfuur rekenen we uw situatie concreet door &mdash; met uw gezinssituatie, uw plannen en alle aftrekposten waar u recht op heeft.</p>
+        </div>
+        <div class="actions reveal" style="--d:.15s">
+          <a class="btn btn--brass" href="contact.html">Maak een afspraak <span class="arrow">&rarr;</span></a>
+          <a class="btn btn--ghost-light" href="tel:+3250222228">Bel 050 22 22 28</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <a class="brand" href="index.html">Jansseune<span class="amp">&amp;</span>Co
+            <small>Boekhouding &middot; Fiscaliteit</small>
+          </a>
+          <p class="tagline">&ldquo;Uw boekhouding, onze zorg!&rdquo;</p>
+          <p>Boekhoudkantoor met meer dan 20 jaar ervaring in boekhouding, fiscaliteit en begeleiding van ondernemers in West-Vlaanderen.</p>
+          <p style="margin-top:1.1rem"><a href="https://www.linkedin.com/showcase/jansseune-&amp;-co/" rel="noopener" target="_blank">Volg ons op LinkedIn</a></p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigatie</h4>
+          <ul>
+            <li><a href="diensten.html">Diensten</a></li>
+            <li><a href="starters.html">Starters</a></li>
+            <li><a href="tarieven.html">Tarieven</a></li>
+            <li><a href="rekentool.html">Rekentool</a></li>
+            <li><a href="over-ons.html">Over ons</a></li>
+            <li><a href="nieuws.html">Nieuws</a></li>
+            <li><a href="faq.html">Veelgestelde vragen</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Diensten</h4>
+          <ul>
+            <li><a href="diensten.html#opstart">Opstart van uw zaak</a></li>
+            <li><a href="diensten.html#boekhouding">Boekhouding</a></li>
+            <li><a href="diensten.html#fiscaliteit">Fiscaliteit &amp; aangiften</a></li>
+            <li><a href="diensten.html#advies">Advies &amp; organisatie</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kantoren</h4>
+          <address><b><a href="boekhouder-brugge.html">Brugge</a></b> (zetel)<br>Sint-Pietersstatiedreef 10, 8000 Brugge</address>
+          <address><b><a href="boekhouder-torhout.html">Torhout</a></b><br>Hugo Verriestlaan 21, 8820 Torhout</address>
+          <address><b><a href="boekhouder-oostende.html">Oostende</a></b><br>Ka&iuml;rostraat 47, 8400 Oostende</address>
+          <address><b><a href="boekhouder-vichte.html">Vichte</a></b><br>Molendreef 16, 8570 Vichte</address>
+          <address style="margin-top:1rem"><b>Ook actief in</b><br><a href="boekhouder-zedelgem.html">Zedelgem</a> &middot; <a href="boekhouder-oostkamp.html">Oostkamp</a></address>
+          <address style="margin-top:1rem"><a href="tel:+3250222228">050 22 22 28</a><br><a href="mailto:ides@jansseune.eu">ides@jansseune.eu</a></address>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; <span data-year>2026</span> Jansseune &amp; Co BV &middot; BTW BE 0433.318.596 &middot; Erkend lid ITAA</p>
+        <ul>
+          <li><a href="privacy.html">Privacy &amp; cookies</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/rekentool.js"></script>
+</body>
+</html>

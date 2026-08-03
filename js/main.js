@@ -131,14 +131,105 @@
   });
 
   /* ---------- Contactformulier ----------
-     Statische site: het formulier opent de mailclient met een
-     vooraf ingevuld bericht aan ides@jansseune.eu. Wie liever een
-     formulierdienst gebruikt (Formspree e.d.): zie README.md. */
+     Werkt in twee standen:
+
+     1. FORM_ENDPOINT leeg  -> het bericht wordt geopend in het
+        e-mailprogramma van de bezoeker (mailto). Werkt zonder enige
+        server, maar faalt stil bij wie enkel webmail gebruikt.
+     2. FORM_ENDPOINT ingevuld -> het bericht wordt rechtstreeks
+        verstuurd naar ides@jansseune.eu via een formulierdienst.
+        Zie README.md voor de exacte stappen; enkel de regel
+        hieronder moet wijzigen.                                    */
+  var FORM_ENDPOINT = "";
+
   var form = document.getElementById("contact-form");
 
   if (form) {
+    var status = form.querySelector(".form-status");
+
+    var toon = function (tekst, gelukt) {
+      if (!status) return;
+      status.textContent = tekst;
+      status.classList.toggle("is-ok", gelukt !== false);
+      status.classList.toggle("is-err", gelukt === false);
+    };
+
+    var get = function (name) {
+      var el = form.querySelector('[name="' + name + '"]');
+      return el ? el.value.trim() : "";
+    };
+
+    var viaMailclient = function () {
+      var onderwerp = "Contactaanvraag via jansseune.eu — " + get("naam");
+      var tekst =
+        "Naam: " + get("naam") + "\n" +
+        "E-mail: " + get("email") + "\n" +
+        "Telefoon: " + (get("telefoon") || "—") + "\n" +
+        "Onderwerp: " + (get("onderwerp") || "—") + "\n\n" +
+        get("bericht");
+
+      window.location.href =
+        "mailto:ides@jansseune.eu?subject=" +
+        encodeURIComponent(onderwerp) +
+        "&body=" +
+        encodeURIComponent(tekst);
+
+      toon(
+        "Uw e-mailprogramma wordt geopend met uw bericht. Gebruikt u webmail " +
+        "en gebeurt er niets? Mail dan rechtstreeks naar ides@jansseune.eu of " +
+        "bel 050 22 22 28."
+      );
+    };
+
+    var viaEndpoint = function (knop) {
+      var oudeTekst = knop ? knop.innerHTML : "";
+      if (knop) {
+        knop.disabled = true;
+        knop.textContent = "Bezig met verzenden…";
+      }
+
+      var herstel = function () {
+        if (knop) {
+          knop.disabled = false;
+          knop.innerHTML = oudeTekst;
+        }
+      };
+
+      fetch(FORM_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          naam: get("naam"),
+          email: get("email"),
+          telefoon: get("telefoon"),
+          onderwerp: get("onderwerp"),
+          bericht: get("bericht")
+        })
+      })
+        .then(function (res) {
+          if (!res.ok) throw new Error(res.status);
+          form.reset();
+          herstel();
+          toon(
+            "Bedankt, uw bericht is verstuurd. We nemen zo snel mogelijk contact " +
+            "met u op — meestal binnen één werkdag."
+          );
+        })
+        .catch(function () {
+          herstel();
+          toon(
+            "Het verzenden lukte niet. Mail ons rechtstreeks op ides@jansseune.eu " +
+            "of bel 050 22 22 28 — dan helpen we u meteen verder.",
+            false
+          );
+        });
+    };
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
+
+      // Honeypot: alleen geautomatiseerde spam vult dit verborgen veld in.
+      if (get("website") !== "") return;
 
       var valid = true;
 
@@ -160,31 +251,10 @@
         return;
       }
 
-      var get = function (name) {
-        var el = form.querySelector('[name="' + name + '"]');
-        return el ? el.value.trim() : "";
-      };
-
-      var subject = "Contactaanvraag via jansseune.eu — " + get("naam");
-      var body =
-        "Naam: " + get("naam") + "\n" +
-        "E-mail: " + get("email") + "\n" +
-        "Telefoon: " + (get("telefoon") || "—") + "\n" +
-        "Onderwerp: " + (get("onderwerp") || "—") + "\n\n" +
-        get("bericht");
-
-      window.location.href =
-        "mailto:ides@jansseune.eu?subject=" +
-        encodeURIComponent(subject) +
-        "&body=" +
-        encodeURIComponent(body);
-
-      var status = form.querySelector(".form-status");
-      if (status) {
-        status.classList.add("is-ok");
-        status.textContent =
-          "Uw e-mailprogramma wordt geopend met uw bericht. Lukt dat niet? " +
-          "Mail rechtstreeks naar ides@jansseune.eu of bel 050 22 22 28.";
+      if (FORM_ENDPOINT) {
+        viaEndpoint(form.querySelector('button[type="submit"]'));
+      } else {
+        viaMailclient();
       }
     });
 

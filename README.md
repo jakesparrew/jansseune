@@ -89,13 +89,69 @@ Grootste lokale winst zit hier — te doen door de eigenaar:
 4. Categorie: *Boekhouder* als hoofdcategorie, *Belastingadviseur* / *Accountant* als extra.
 5. De LinkedIn-pagina (`linkedin.com/showcase/jansseune-&-co/`) staat al als `sameAs` in de structured data en in de footer — dat versterkt de entiteitsherkenning bij Google.
 
+## Het contactformulier — hoe het werkt
+
+### Wat er al werkt
+
+E-mail voor het domein draait op **Microsoft 365** (MX-record wijst naar `jansseune-eu.mail.protection.outlook.com`). `ides@jansseune.eu` kan dus gewoon mail ontvangen — daar is niets aan te doen.
+
+Het formulier heeft **geen mailserver nodig**: het opent het e-mailprogramma van de bezoeker met een vooraf ingevuld bericht aan `ides@jansseune.eu`. De bezoeker verstuurt het zelf, vanaf zijn eigen adres.
+
+### De beperking
+
+Wie **enkel webmail** gebruikt (Gmail in de browser, zonder ingestelde mailclient) ziet er niets gebeuren. Op gsm werkt het bijna altijd, op desktop niet altijd. Op de contactpagina staan daarom ook het telefoonnummer en het e-mailadres duidelijk vermeld, zodat niemand vastloopt.
+
+### Waarom géén PHP-mailscript op Combell
+
+Het SPF-record van het domein is streng:
+
+```
+v=spf1 include:spf.protection.outlook.com -all
+```
+
+Die `-all` betekent: **alleen Microsoft 365 mag mail versturen namens @jansseune.eu**. Een PHP-script dat vanaf de Combell-server mail verstuurt met afzender `@jansseune.eu` faalt dus op SPF en belandt in de spam of wordt geweigerd. Dat is een val waar veel websites intrappen — niet doen.
+
+### De aanbevolen oplossing (5 minuten werk)
+
+Gebruik een formulierdienst die vanaf **haar eigen domein** mailt naar `ides@jansseune.eu`, met de bezoeker als `Reply-To`. Geen SPF-probleem, geen server, geen onderhoud:
+
+1. Maak een account bij [Web3Forms](https://web3forms.com) (gratis, onbeperkt) of [Formspree](https://formspree.io) (gratis tot 50 berichten/maand) en vul `ides@jansseune.eu` in als ontvanger.
+2. U krijgt een endpoint-URL of access key.
+3. Zet die op **één regel** in `js/main.js`:
+
+```js
+var FORM_ENDPOINT = "https://api.web3forms.com/submit";
+```
+
+Meer is er niet nodig: het formulier schakelt dan automatisch over van `mailto:` naar echte verzending, mét bevestigingsboodschap, foutafhandeling en een reeds ingebouwde honeypot tegen spam. Bij Web3Forms voegt u de access key toe als extra veld in `contact.html`.
+
+## De rekentool — jaarlijks bijwerken
+
+`rekentool.html` berekent wat een zelfstandige netto overhoudt. Alle wettelijke parameters staan **bovenaan `js/rekentool.js`** in één blok, zodat bijwerken enkele minuten kost.
+
+Momenteel ingesteld op **inkomstenjaar 2026 / aanslagjaar 2027**:
+
+| Parameter | Waarde |
+|---|---|
+| Sociale bijdragen | 20,5% tot €75.024,54 — 14,16% tot €110.562,42 |
+| Minimum hoofdberoep | €890,42/kwartaal (excl. beheerskosten) |
+| Ondergrens bijberoep | €1.922,16 |
+| Beheerskosten | 4% |
+| Belastingschijven | 25% / 40% / 45% / 50% vanaf €16.720 / €29.510 / €51.070 |
+| Belastingvrije som | €11.180 |
+
+Wat te doen bij een nieuw jaar: vervang de cijfers in het `P`-object in `js/rekentool.js`, pas het jaartal aan in de sectie *"Waarop is deze berekening gebaseerd?"* in `rekentool.html`, en werk de meta-description bij.
+
+De berekening houdt correct rekening met de aftrekbaarheid van de sociale bijdragen, met de minimumbijdrage in hoofdberoep en met de bijdrageplafonds. Ze gaat uit van een alleenstaande zonder personen ten laste — dat staat expliciet vermeld op de pagina, met een verwijzing naar een persoonlijk gesprek.
+
 ## Vóór livegang nakijken
 
 - [ ] **Openingsuren** — nu staat er "consultaties op afspraak / bereikbaar tijdens kantooruren"; pas aan indien gewenst (contact.html, index.html).
 - [ ] **ITAA-erkenningsnummer** — de site vermeldt "Erkend lid ITAA" zonder nummer; vroeger BIBF-nr. 70225875. Voeg het actuele ITAA-nummer toe in de footer/over-ons indien gewenst.
 - [ ] **Nieuwsartikels** — drie voorbeeldartikels (Peppol, deadlines 2026, bijberoep) zijn inhoudelijk correct opgesteld maar generiek; laat ze inhoudelijk valideren door Ides.
 - [ ] **Foto's** — de site werkt bewust zonder stockfoto's; een echte foto van Ides/het kantoor kan de `portrait-card` op home en over-ons vervangen.
-- [ ] **Contactformulier** — werkt nu via `mailto:` (opent het mailprogramma van de bezoeker). Wil je échte formulierverzending zonder mailprogramma, koppel dan een dienst als [Formspree](https://formspree.io) of [Web3Forms](https://web3forms.com): zet in `contact.html` het `action`-attribuut en verwijder de mailto-handler in `js/main.js`.
+- [ ] **Contactformulier** — werkt nu via `mailto:`. Zie het hoofdstuk hierboven om over te schakelen op echte verzending (één regel in `js/main.js`).
+- [ ] **Rekentool** — laat de gebruikte parameters valideren door Ides en zet de update in de agenda voor januari.
 - [ ] **Kaart** — Google Maps-embed op de contactpagina wijst naar de zetel in Brugge.
 
 ## SEO
@@ -114,8 +170,24 @@ De site is geoptimaliseerd op basis van DataForSEO-zoekvolumedata (Google Ads, B
 | `boekhouder-oostende.html` | boekhouder oostende (170) |
 | `boekhouder-torhout.html` | boekhouder torhout (90) |
 | `boekhouder-vichte.html` | boekhouder vichte + regio kortrijk (170) / waregem (110) |
+| `boekhouder-zedelgem.html` | boekhouder zedelgem (gerelateerde zoekopdracht) |
+| `boekhouder-oostkamp.html` | boekhouder oostkamp (gerelateerde zoekopdracht) |
+| `rekentool.html` | hoeveel hou ik netto over als zelfstandige |
+| `faq.html` | wat kost een boekhouder per uur, betrouwbare boekhouder |
 | `nieuws-e-facturatie-peppol.html` | peppol (60.500!), e-facturatie (1.300) |
 | `nieuws-starten-in-bijberoep.html` | zelfstandige in bijberoep (4.400) |
+
+**SERP-analyse "boekhouder brugge"** (DataForSEO, augustus 2026) — bepalend voor de strategie:
+
+De posities 1-3 én 6-8 zijn **Google Bedrijfsprofielen**; van de 35 resultaten zijn er 12 uit de local pack. Er staat géén enkel blogartikel in de top 10 — de organieke winnaars zijn homepages, plus één kantoorpagina per stad (Titeca). Concurrenten in de top 3 en hun reviews:
+
+| Kantoor | Score | Reviews |
+|---|---|---|
+| Jonghof Accountants | 5,0 | 53 |
+| Dfisc Boekhouder Brugge | 4,7 | 30 |
+| Kantoor Dewulf | 4,8 | 16 |
+
+**Conclusie: reviews verzamelen is de grootste hefboom**, niet content. Richtcijfer om in de top 3 mee te spelen: 20 à 30 reviews boven 4,7.
 
 **Technisch aanwezig:** canonicals, sitemap met lastmod, robots.txt, Open Graph + Twitter cards met og-afbeelding (`assets/og.png`), theme-color, BreadcrumbList/WebSite/AccountingService (met 4 vestigingen)/Article/FAQPage JSON-LD, `sameAs` naar LinkedIn, lokale landingspagina's per kantoor met eigen LocalBusiness-schema en areaServed, 301-redirects van de oude WordPress-URL's via `.htaccess`.
 
