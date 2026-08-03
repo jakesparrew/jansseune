@@ -972,6 +972,10 @@ body.nav-open .nav-toggle span:nth-child(3) {
 
 .portret img {
   width: 100%;
+  /* height:auto is nodig: zonder dat wint het height-attribuut uit de HTML
+     en wordt aspect-ratio genegeerd. Die attributen blijven wel staan,
+     want ze voorkomen dat de pagina verspringt tijdens het laden. */
+  height: auto;
   aspect-ratio: 1 / 1;
   object-fit: cover;
   object-position: center 20%;

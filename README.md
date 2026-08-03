@@ -19,7 +19,19 @@ Volledig statische site: HTML, CSS en vanilla JavaScript. Geen build-stap, geen 
 | Privacy & cookies | `privacy.html` |
 | 404 | `404.html` |
 
-Gedeelde bestanden: `css/style.css` (volledig design system), `js/main.js` (navigatie, animaties, accordion, formulier), `assets/favicon.svg`.
+Gedeelde bestanden: `css/style.css` (volledig design system), `js/main.js` (navigatie, animaties, accordion, formulier), `js/rekentool.js` (berekening netto-inkomen).
+
+### Afbeeldingen in `assets/`
+
+| Bestand | Gebruik |
+|---|---|
+| `ides-jansseune.png` | **Bronbestand** (1254×1254, 2,1 MB). Wordt niet door de site geladen — bewaard om nieuwe uitsnedes van te maken. |
+| `ides-jansseune.jpg` | Groot portret op de over-onspagina (900×900, 88 KB) |
+| `ides-jansseune-klein.jpg` | Ronde foto in de citaatkaart op de homepage (260×260, 15 KB) |
+| `og.jpg` | Deelafbeelding voor sociale media (1200×630, 83 KB) |
+| `favicon.svg` | Browsericoon |
+
+Nieuwe formaten nodig? Genereer ze uit het PNG-bronbestand; lever nooit die 2,1 MB rechtstreeks aan bezoekers.
 
 ## Lokaal bekijken
 
@@ -149,7 +161,7 @@ De berekening houdt correct rekening met de aftrekbaarheid van de sociale bijdra
 - [ ] **Openingsuren** — nu staat er "consultaties op afspraak / bereikbaar tijdens kantooruren"; pas aan indien gewenst (contact.html, index.html).
 - [ ] **ITAA-erkenningsnummer** — de site vermeldt "Erkend lid ITAA" zonder nummer; vroeger BIBF-nr. 70225875. Voeg het actuele ITAA-nummer toe in de footer/over-ons indien gewenst.
 - [ ] **Nieuwsartikels** — drie voorbeeldartikels (Peppol, deadlines 2026, bijberoep) zijn inhoudelijk correct opgesteld maar generiek; laat ze inhoudelijk valideren door Ides.
-- [ ] **Foto's** — de site werkt bewust zonder stockfoto's; een echte foto van Ides/het kantoor kan de `portrait-card` op home en over-ons vervangen.
+- [ ] **Extra foto's** — een beeld van het kantoor of van Ides aan het werk zou de dienstenpagina's versterken. Bewust géén stockfoto's.
 - [ ] **Contactformulier** — werkt nu via `mailto:`. Zie het hoofdstuk hierboven om over te schakelen op echte verzending (één regel in `js/main.js`).
 - [ ] **Rekentool** — laat de gebruikte parameters valideren door Ides en zet de update in de agenda voor januari.
 - [ ] **Kaart** — Google Maps-embed op de contactpagina wijst naar de zetel in Brugge.
