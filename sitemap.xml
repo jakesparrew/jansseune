@@ -2,46 +2,77 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.jansseune.eu/</loc>
+    <lastmod>2026-08-03</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.jansseune.eu/diensten.html</loc>
+    <lastmod>2026-08-03</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.jansseune.eu/starters.html</loc>
+    <lastmod>2026-08-03</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.jansseune.eu/tarieven.html</loc>
+    <lastmod>2026-08-03</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.jansseune.eu/over-ons.html</loc>
+    <lastmod>2026-08-03</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.jansseune.eu/boekhouder-brugge.html</loc>
+    <lastmod>2026-08-03</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.jansseune.eu/boekhouder-torhout.html</loc>
+    <lastmod>2026-08-03</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.jansseune.eu/boekhouder-oostende.html</loc>
+    <lastmod>2026-08-03</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.jansseune.eu/boekhouder-vichte.html</loc>
+    <lastmod>2026-08-03</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.jansseune.eu/nieuws.html</loc>
+    <lastmod>2026-08-03</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.jansseune.eu/nieuws-e-facturatie-peppol.html</loc>
-    <priority>0.5</priority>
+    <lastmod>2026-08-03</lastmod>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.jansseune.eu/nieuws-fiscale-deadlines-2026.html</loc>
+    <lastmod>2026-08-03</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://www.jansseune.eu/nieuws-starten-in-bijberoep.html</loc>
-    <priority>0.5</priority>
+    <lastmod>2026-08-03</lastmod>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.jansseune.eu/faq.html</loc>
+    <lastmod>2026-08-03</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.jansseune.eu/contact.html</loc>
+    <lastmod>2026-08-03</lastmod>
     <priority>0.9</priority>
   </url>
 </urlset>
