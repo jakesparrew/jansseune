@@ -447,6 +447,10 @@ body.nav-open .nav-toggle span:nth-child(3) {
     flex-direction: column;
     justify-content: center;
     gap: 1.1rem;
+    /* Vangnet voor lage schermen: liever scrollen dan items verliezen */
+    padding: 5.5rem 1.5rem 2rem;
+    overflow-y: auto;
+    overscroll-behavior: contain;
     background: var(--ink);
     opacity: 0;
     visibility: hidden;
@@ -469,6 +473,20 @@ body.nav-open .nav-toggle span:nth-child(3) {
   body.nav-open .site-nav {
     opacity: 1;
     visibility: visible;
+  }
+
+  /* Belangrijk: backdrop-filter maakt van de header een containing block
+     voor position:fixed-kinderen. Zolang de blur actief is, positioneert
+     de menu-overlay zich tegen de header (5rem hoog) in plaats van tegen
+     het scherm, waardoor de links buiten hun achtergrond vallen. Bij een
+     open menu zetten we de blur daarom uit; de overlay dekt de header
+     toch volledig af. */
+  body.nav-open .site-header,
+  body.nav-open .site-header.is-scrolled {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
   }
 
   .site-nav a:not(.btn) {

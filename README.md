@@ -12,14 +12,17 @@ Volledig statische site: HTML, CSS en vanilla JavaScript. Geen build-stap, geen 
 | Diensten | `diensten.html` (ankers: `#opstart`, `#boekhouding`, `#fiscaliteit`, `#advies`) |
 | Starters | `starters.html` |
 | Tarieven | `tarieven.html` |
+| Simulatie netto-inkomen | `netto-berekenen.html` (menulabel: *Simulatie*) |
 | Over ons | `over-ons.html` |
+| Kantoren per stad | `boekhouder-brugge/-torhout/-oostende/-vichte.html` |
+| Verzorgingsgebied | `boekhouder-zedelgem.html`, `boekhouder-oostkamp.html` |
 | Nieuws + 3 artikels | `nieuws.html`, `nieuws-*.html` |
 | FAQ | `faq.html` |
 | Contact | `contact.html` |
 | Privacy & cookies | `privacy.html` |
 | 404 | `404.html` |
 
-Gedeelde bestanden: `css/style.css` (volledig design system), `js/main.js` (navigatie, animaties, accordion, formulier), `js/rekentool.js` (berekening netto-inkomen).
+Gedeelde bestanden: `css/style.css` (volledig design system), `js/main.js` (navigatie, animaties, accordion, formulier), `js/netto-berekenen.js` (berekening netto-inkomen).
 
 ### Afbeeldingen in `assets/`
 
@@ -137,9 +140,9 @@ var FORM_ENDPOINT = "https://api.web3forms.com/submit";
 
 Meer is er niet nodig: het formulier schakelt dan automatisch over van `mailto:` naar echte verzending, mét bevestigingsboodschap, foutafhandeling en een reeds ingebouwde honeypot tegen spam. Bij Web3Forms voegt u de access key toe als extra veld in `contact.html`.
 
-## De rekentool — jaarlijks bijwerken
+## De simulatietool — jaarlijks bijwerken
 
-`rekentool.html` berekent wat een zelfstandige netto overhoudt. Alle wettelijke parameters staan **bovenaan `js/rekentool.js`** in één blok, zodat bijwerken enkele minuten kost.
+`netto-berekenen.html` berekent wat een zelfstandige netto overhoudt. Alle wettelijke parameters staan **bovenaan `js/netto-berekenen.js`** in één blok, zodat bijwerken enkele minuten kost.
 
 Momenteel ingesteld op **inkomstenjaar 2026 / aanslagjaar 2027**:
 
@@ -152,7 +155,7 @@ Momenteel ingesteld op **inkomstenjaar 2026 / aanslagjaar 2027**:
 | Belastingschijven | 25% / 40% / 45% / 50% vanaf €16.720 / €29.510 / €51.070 |
 | Belastingvrije som | €11.180 |
 
-Wat te doen bij een nieuw jaar: vervang de cijfers in het `P`-object in `js/rekentool.js`, pas het jaartal aan in de sectie *"Waarop is deze berekening gebaseerd?"* in `rekentool.html`, en werk de meta-description bij.
+Wat te doen bij een nieuw jaar: vervang de cijfers in het `P`-object in `js/netto-berekenen.js`, pas het jaartal aan in de sectie *"Waarop is deze berekening gebaseerd?"* in `netto-berekenen.html`, en werk de meta-description bij.
 
 De berekening houdt correct rekening met de aftrekbaarheid van de sociale bijdragen, met de minimumbijdrage in hoofdberoep en met de bijdrageplafonds. Ze gaat uit van een alleenstaande zonder personen ten laste — dat staat expliciet vermeld op de pagina, met een verwijzing naar een persoonlijk gesprek.
 
@@ -163,7 +166,7 @@ De berekening houdt correct rekening met de aftrekbaarheid van de sociale bijdra
 - [ ] **Nieuwsartikels** — drie voorbeeldartikels (Peppol, deadlines 2026, bijberoep) zijn inhoudelijk correct opgesteld maar generiek; laat ze inhoudelijk valideren door Ides.
 - [ ] **Extra foto's** — een beeld van het kantoor of van Ides aan het werk zou de dienstenpagina's versterken. Bewust géén stockfoto's.
 - [ ] **Contactformulier** — werkt nu via `mailto:`. Zie het hoofdstuk hierboven om over te schakelen op echte verzending (één regel in `js/main.js`).
-- [ ] **Rekentool** — laat de gebruikte parameters valideren door Ides en zet de update in de agenda voor januari.
+- [ ] **Simulatietool** — laat de gebruikte parameters valideren door Ides en zet de update in de agenda voor januari.
 - [ ] **Kaart** — Google Maps-embed op de contactpagina wijst naar de zetel in Brugge.
 
 ## SEO
@@ -184,7 +187,7 @@ De site is geoptimaliseerd op basis van DataForSEO-zoekvolumedata (Google Ads, B
 | `boekhouder-vichte.html` | boekhouder vichte + regio kortrijk (170) / waregem (110) |
 | `boekhouder-zedelgem.html` | boekhouder zedelgem (gerelateerde zoekopdracht) |
 | `boekhouder-oostkamp.html` | boekhouder oostkamp (gerelateerde zoekopdracht) |
-| `rekentool.html` | hoeveel hou ik netto over als zelfstandige |
+| `netto-berekenen.html` | hoeveel hou ik netto over als zelfstandige |
 | `faq.html` | wat kost een boekhouder per uur, betrouwbare boekhouder |
 | `nieuws-e-facturatie-peppol.html` | peppol (60.500!), e-facturatie (1.300) |
 | `nieuws-starten-in-bijberoep.html` | zelfstandige in bijberoep (4.400) |

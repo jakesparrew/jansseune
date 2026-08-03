@@ -1,11 +1,11 @@
-/* Jansseune & Co — rekentool netto-inkomen zelfstandigen
+/* Jansseune & Co — simulatie netto-inkomen zelfstandigen
  *
  * ---------------------------------------------------------------
  * JAARLIJKS BIJ TE WERKEN
  * Alle wettelijke parameters staan hieronder gegroepeerd. Bij een
  * nieuw inkomstenjaar volstaat het deze cijfers te vervangen; de
  * rest van de code hoeft niet te wijzigen. Vergeet dan ook het
- * jaartal in rekentool.html niet aan te passen.
+ * jaartal in netto-berekenen.html niet aan te passen.
  * ---------------------------------------------------------------
  */
 (function () {
@@ -120,7 +120,7 @@
 
   /* ---------- Koppeling met het formulier ---------- */
 
-  var form = document.getElementById("rekentool");
+  var form = document.getElementById("netto-simulatie");
   if (!form) return;
 
   var el = function (id) {

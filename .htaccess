@@ -23,6 +23,7 @@ RewriteRule ^ https://www.jansseune.eu%{REQUEST_URI} [R=301,L]
 # 2. 301-redirects van de oude WordPress-site
 #    Zo blijven bestaande Google-posities en externe links werken.
 # -------------------------------------------------------------
+RewriteRule ^rekentool\.html$            /netto-berekenen.html  [R=301,L]
 RewriteRule ^faq-items/?$                /faq.html          [R=301,L]
 RewriteRule ^author/jansseune/?$         /                  [R=301,L]
 RewriteRule ^feed/?$                     /nieuws.html       [R=301,L]
