@@ -12,9 +12,10 @@
   --paper: #f7f4ed;
   --paper-2: #f0ebe0;
   --white: #fdfcf9;
-  --brass: #a97f2f;
-  --brass-2: #8a6624;
-  --brass-bright: #c09a4a;
+  --brass: #a97f2f;        /* lijnen, randen, accenten op donker */
+  --brass-2: #8a6624;      /* tekstlinks en knopvlakken (wit erop: 5,1:1) */
+  --brass-bright: #c09a4a; /* accenten op de inktkleur */
+  --brass-text: #78581e;   /* kleine messingtekst op papier (5,9:1) */
   --text: #22303e;
   --muted: #5c6673;
   --line: rgba(16, 32, 47, 0.14);
@@ -137,7 +138,7 @@ h4 {
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--brass);
+  color: var(--brass-text);
 }
 
 .eyebrow::before {
@@ -241,8 +242,11 @@ h4 {
   color: var(--white);
 }
 
+/* Wit op --brass haalt maar 3,55:1 en zakt onder de AA-norm van 4,5:1.
+   Op --brass-2 is dat 5,11:1 — de belangrijkste knop van de site moet
+   leesbaar zijn, zeker voor de leeftijdsgroep die hier belt. */
 .btn--brass {
-  background: var(--brass);
+  background: var(--brass-2);
   color: var(--white);
 }
 
@@ -343,6 +347,49 @@ h4 {
   text-transform: uppercase;
   color: var(--muted);
   margin-top: 0.1rem;
+}
+
+/* Bellen op één tik. Op desktop staat het nummer in de footer en op de
+   contactpagina; op mobiel klapt de navigatie dicht en was bellen drie
+   tikken ver. Deze knop blijft ook zichtbaar wanneer het menu openstaat. */
+.header-tel {
+  display: none;
+  margin-left: auto;
+  margin-right: 0.85rem;
+  padding: 0.5rem 0.95rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--ink);
+  background: rgba(253, 252, 249, 0.75);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: background 0.3s var(--ease), color 0.3s var(--ease),
+    border-color 0.3s var(--ease);
+}
+
+@media (max-width: 860px) {
+  .header-tel {
+    display: inline-block;
+  }
+}
+
+@media (max-width: 400px) {
+  .header-tel {
+    font-size: 0.72rem;
+    padding: 0.45rem 0.7rem;
+    margin-right: 0.5rem;
+  }
+}
+
+/* Boven de menu-overlay houden, zodat bellen ook met open menu werkt */
+body.nav-open .header-tel {
+  position: relative;
+  z-index: 110;
+  color: var(--paper);
+  background: transparent;
+  border-color: rgba(247, 244, 237, 0.4);
 }
 
 .site-nav {
@@ -711,7 +758,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.2em;
-  color: var(--brass);
+  color: var(--brass-text);
 }
 
 .service-card h3 {
@@ -746,7 +793,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
   font-family: var(--font-mono);
   font-size: 0.75rem;
   letter-spacing: 0.2em;
-  color: var(--brass);
+  color: var(--brass-text);
   margin-bottom: 0.9rem;
 }
 
@@ -906,7 +953,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
   font-size: 0.66rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--brass);
+  color: var(--brass-text);
 }
 
 .office h3 {
@@ -918,6 +965,10 @@ body.nav-open .nav-toggle span:nth-child(3) {
   font-size: 0.94rem;
   color: var(--muted);
   line-height: 1.55;
+}
+
+.section--ink .office .tag {
+  color: var(--brass-bright);
 }
 
 .section--ink .office {
@@ -1168,7 +1219,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 }
 
 .news-card .cat {
-  color: var(--brass);
+  color: var(--brass-text);
 }
 
 .news-card .card-body {
@@ -1214,7 +1265,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 }
 
 .article-hero .meta .cat {
-  color: var(--brass);
+  color: var(--brass-text);
 }
 
 .article-hero h1 {
@@ -1326,7 +1377,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
   font-family: var(--font-mono);
   font-size: 0.75rem;
   letter-spacing: 0.12em;
-  color: var(--brass);
+  color: var(--brass-text);
   min-width: 2.2rem;
 }
 
@@ -1868,7 +1919,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
   font-size: 0.68rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--brass);
+  color: var(--brass-text);
   margin-bottom: 0.5rem;
 }
 
@@ -1910,14 +1961,16 @@ body.nav-open .nav-toggle span:nth-child(3) {
 
 .field label {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.18em;
+  /* 0,68rem is ongeveer 10,9 px — te klein voor hoofdletters met veel
+     letterafstand. Iets groter en met minder spatiëring leest vlotter. */
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--muted);
 }
 
 .field label b {
-  color: var(--brass);
+  color: var(--brass-text);
   font-weight: 500;
 }
 
@@ -1998,6 +2051,20 @@ body.nav-open .nav-toggle span:nth-child(3) {
   background: rgba(163, 55, 46, 0.09);
   border: 1px solid rgba(163, 55, 46, 0.35);
   color: var(--err);
+}
+
+/* Neutraal: er moet nog iets gebeuren bij de bezoeker zelf. Bewust niet
+   groen — dat zou een verzending suggereren die er niet is. */
+.form-status.is-info {
+  display: block;
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  color: var(--text);
+}
+
+.form-status a {
+  color: var(--brass-2);
+  border-bottom: 1px solid currentColor;
 }
 
 .map-frame {
@@ -2136,7 +2203,11 @@ body.nav-open .nav-toggle span:nth-child(3) {
 }
 
 /* ---------- Reveal animaties ---------- */
-.reveal {
+/* Alleen verbergen wanneer JavaScript effectief draait. De klasse .js wordt
+   in de head gezet. Zonder die voorwaarde blijft de volledige pagina op
+   opacity 0 staan zodra main.js faalt of geblokkeerd wordt — inclusief het
+   contactformulier, dat zelf class="form reveal" draagt. */
+.js .reveal {
   opacity: 0;
   transform: translateY(28px);
   transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
@@ -2148,17 +2219,20 @@ body.nav-open .nav-toggle span:nth-child(3) {
   transform: none;
 }
 
-/* Hero intro-sequentie */
-.hero [data-intro] {
-  opacity: 0;
+/* Hero intro-sequentie.
+   Bewust zonder opacity: de h1 is het LCP-element, en een element met
+   opacity 0 telt bij Chrome niet mee als LCP-kandidaat. Met de oude
+   vertraging begon de meting pas na 0,27 s. Nu schuift de tekst enkel
+   in, maar staat ze meteen op het scherm. */
+.js .hero [data-intro],
+.js .page-hero [data-intro] {
   transform: translateY(26px);
-  animation: intro 1s var(--ease) forwards;
-  animation-delay: calc(var(--i, 0) * 0.12s + 0.15s);
+  animation: intro 0.9s var(--ease) forwards;
+  animation-delay: calc(var(--i, 0) * 0.09s);
 }
 
 @keyframes intro {
   to {
-    opacity: 1;
     transform: none;
   }
 }
@@ -2186,8 +2260,45 @@ body.nav-open .nav-toggle span:nth-child(3) {
   margin: 1rem 0 0.75rem;
 }
 
-.error-page .btn {
+.error-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem 1.6rem;
+  margin-top: 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.error-links a {
+  color: var(--brass-bright);
+  border-bottom: 1px solid transparent;
+  padding-bottom: 0.15rem;
+  transition: border-color 0.3s var(--ease);
+}
+
+.error-links a:hover {
+  border-color: var(--brass-bright);
+}
+
+.error-acties {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.9rem;
   margin-top: 2.25rem;
+}
+
+.error-voet {
+  margin-top: 2.75rem;
+  font-size: 0.85rem;
+  color: rgba(247, 244, 237, 0.5);
+}
+
+.error-voet a {
+  color: var(--brass-bright);
 }
 
 /* ---------- Responsief ---------- */
@@ -2337,8 +2448,9 @@ body.nav-open .nav-toggle span:nth-child(3) {
     transition-duration: 0.01ms !important;
   }
 
-  .reveal,
-  .hero [data-intro] {
+  .js .reveal,
+  .js .hero [data-intro],
+  .js .page-hero [data-intro] {
     opacity: 1;
     transform: none;
   }

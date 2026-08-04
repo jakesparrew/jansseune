@@ -6,11 +6,16 @@
   <title>Pagina niet gevonden | Jansseune &amp; Co</title>
   <meta name="robots" content="noindex">
   <meta name="theme-color" content="#10202f">
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <!-- Absolute paden: deze pagina wordt door .htaccess ook geserveerd op
+       diepe URL's zoals /wp-content/oud/bestand.html. Met relatieve paden
+       zoekt de browser de stylesheet dan in die niet-bestaande map en
+       krijgt de bezoeker een pagina zonder opmaak met een dode knop. -->
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,144,400;0,144,560;0,144,600;1,144,400&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>document.documentElement.className += " js";</script>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
@@ -18,8 +23,24 @@
     <div class="container">
       <p class="code">4<span class="amp">&amp;</span>4</p>
       <h1 class="h2">Deze pagina vinden we niet terug</h1>
-      <p>Zelfs de beste boekhouding heeft soms een ontbrekend stuk. Geen zorgen &mdash; via de startpagina vindt u alles terug.</p>
-      <a class="btn btn--brass" href="index.html">Terug naar de startpagina <span class="arrow">&rarr;</span></a>
+      <p>Zelfs de beste boekhouding heeft soms een ontbrekend stuk. Misschien vindt u hieronder wat u zocht.</p>
+
+      <div class="error-links">
+        <a href="/index.html">Startpagina</a>
+        <a href="/diensten.html">Diensten</a>
+        <a href="/tarieven.html">Tarieven</a>
+        <a href="/tools.html">Rekenhulpen</a>
+        <a href="/faq.html">Veelgestelde vragen</a>
+        <a href="/contact.html">Contact</a>
+      </div>
+
+      <div class="error-acties">
+        <a class="btn btn--brass" href="/index.html">Naar de startpagina <span class="arrow">&rarr;</span></a>
+        <a class="btn btn--ghost-light" href="tel:+3250222228">Bel 050 22 22 28</a>
+      </div>
+
+      <p class="error-voet">Jansseune &amp; Co &mdash; boekhouding en fiscaliteit in Brugge, Torhout, Oostende en Vichte<br>
+        <a href="mailto:ides@jansseune.eu">ides@jansseune.eu</a></p>
     </div>
   </main>
 

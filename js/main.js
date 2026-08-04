@@ -147,11 +147,13 @@
   if (form) {
     var status = form.querySelector(".form-status");
 
-    var toon = function (tekst, gelukt) {
+    // soort: "ok" (echt verzonden), "info" (actie bij de bezoeker) of "fout"
+    var toon = function (html, soort) {
       if (!status) return;
-      status.textContent = tekst;
-      status.classList.toggle("is-ok", gelukt !== false);
-      status.classList.toggle("is-err", gelukt === false);
+      status.innerHTML = html;
+      status.classList.toggle("is-ok", soort === "ok");
+      status.classList.toggle("is-info", soort === "info");
+      status.classList.toggle("is-err", soort === "fout");
     };
 
     var get = function (name) {
@@ -174,10 +176,15 @@
         "&body=" +
         encodeURIComponent(tekst);
 
+      // Bewust geen groene bevestiging: er is nog niets verzonden. De
+      // bezoeker moet zelf nog op verzenden drukken in zijn mailprogramma.
       toon(
-        "Uw e-mailprogramma wordt geopend met uw bericht. Gebruikt u webmail " +
-        "en gebeurt er niets? Mail dan rechtstreeks naar ides@jansseune.eu of " +
-        "bel 050 22 22 28."
+        "<b>Uw e-mailprogramma zou nu moeten openen</b> met uw bericht erin — " +
+        "er is nog niets verzonden. Gebeurt er niets, bijvoorbeeld omdat u " +
+        "webmail gebruikt? Mail ons dan rechtstreeks op " +
+        '<a href="mailto:ides@jansseune.eu">ides@jansseune.eu</a> of bel ' +
+        '<a href="tel:+3250222228">050 22 22 28</a>.',
+        "info"
       );
     };
 
@@ -212,15 +219,17 @@
           herstel();
           toon(
             "Bedankt, uw bericht is verstuurd. We nemen zo snel mogelijk contact " +
-            "met u op — meestal binnen één werkdag."
+            "met u op — meestal binnen één werkdag.",
+            "ok"
           );
         })
         .catch(function () {
           herstel();
           toon(
-            "Het verzenden lukte niet. Mail ons rechtstreeks op ides@jansseune.eu " +
-            "of bel 050 22 22 28 — dan helpen we u meteen verder.",
-            false
+            "Het verzenden lukte niet. Mail ons rechtstreeks op " +
+            '<a href="mailto:ides@jansseune.eu">ides@jansseune.eu</a> of bel ' +
+            '<a href="tel:+3250222228">050 22 22 28</a> — dan helpen we u meteen verder.',
+            "fout"
           );
         });
     };
@@ -228,8 +237,18 @@
     form.addEventListener("submit", function (e) {
       e.preventDefault();
 
-      // Honeypot: alleen geautomatiseerde spam vult dit verborgen veld in.
-      if (get("website") !== "") return;
+      // Spamval: alleen geautomatiseerde invullers raken dit verborgen veld
+      // aan. Mocht een echte bezoeker hier toch in belanden, dan krijgt hij
+      // een uitweg in plaats van een knop die niets doet.
+      if (get("jansseune-controle") !== "") {
+        toon(
+          "Uw bericht kon niet verwerkt worden. Mail ons gerust rechtstreeks op " +
+          '<a href="mailto:ides@jansseune.eu">ides@jansseune.eu</a> of bel ' +
+          '<a href="tel:+3250222228">050 22 22 28</a>.',
+          "fout"
+        );
+        return;
+      }
 
       var valid = true;
 

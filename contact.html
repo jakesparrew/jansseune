@@ -21,7 +21,8 @@
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,144,400;0,144,560;0,144,600;1,144,400&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>document.documentElement.className += " js";</script>
   <link rel="stylesheet" href="css/style.css">
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.jansseune.eu/"},{"@type":"ListItem","position":2,"name":"Contact","item":"https://www.jansseune.eu/contact.html"}]}
@@ -35,6 +36,7 @@
       <a class="brand" href="index.html">Jansseune<span class="amp">&amp;</span>Co
         <small>Boekhouding &middot; Fiscaliteit</small>
       </a>
+      <a class="header-tel" href="tel:+3250222228" aria-label="Bel Jansseune en Co op 050 22 22 28">050 22 22 28</a>
       <button class="nav-toggle" aria-label="Menu openen of sluiten" aria-expanded="false" aria-controls="site-nav">
         <span></span><span></span><span></span>
       </button>
@@ -119,9 +121,13 @@
               <textarea id="f-bericht" name="bericht" required placeholder="Vertel kort iets over uw zaak of uw vraag&hellip;"></textarea>
               <span class="error-msg">Schrijf een kort bericht.</span>
             </div>
+            <!-- Spamval. Het veld heet bewust niet "website": dat is een
+                 gangbare autofill-sleutel, waardoor een wachtwoordmanager het
+                 bij een echte bezoeker kan invullen en de verzending stilzwijgend
+                 zou blokkeren. -->
             <div class="field" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">
-              <label for="f-website">Laat dit veld leeg</label>
-              <input type="text" id="f-website" name="website" tabindex="-1" autocomplete="off">
+              <label for="f-controle">Laat dit veld leeg</label>
+              <input type="text" id="f-controle" name="jansseune-controle" tabindex="-1" autocomplete="off">
             </div>
             <div class="form-status" role="status" aria-live="polite"></div>
             <div class="form-footer">
