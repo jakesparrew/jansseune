@@ -7,9 +7,13 @@
   /* ---------- Sticky header ---------- */
   var header = document.querySelector(".site-header");
 
+  /* Twee drempels in plaats van één: rond de 24 px flikkerde de header bij
+     het kleinste scrollduwtje aan en uit. */
   function onScroll() {
     if (!header) return;
-    header.classList.toggle("is-scrolled", window.scrollY > 24);
+    var y = window.scrollY;
+    if (y > 40) header.classList.add("is-scrolled");
+    else if (y < 8) header.classList.remove("is-scrolled");
   }
 
   window.addEventListener("scroll", onScroll, { passive: true });
@@ -66,48 +70,11 @@
     });
   }
 
-  /* ---------- Tellers (statbar) ---------- */
-  var counters = document.querySelectorAll("[data-count]");
-
-  function animateCount(el) {
-    var target = parseInt(el.getAttribute("data-count"), 10);
-    var suffix = el.getAttribute("data-suffix") || "";
-    var dur = 1400;
-    var start = null;
-
-    function tick(ts) {
-      if (!start) start = ts;
-      var p = Math.min((ts - start) / dur, 1);
-      var eased = 1 - Math.pow(1 - p, 3);
-      el.textContent = Math.round(eased * target) + suffix;
-      if (p < 1) requestAnimationFrame(tick);
-    }
-
-    requestAnimationFrame(tick);
-  }
-
-  if (counters.length && "IntersectionObserver" in window && !prefersReduced) {
-    var cio = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            animateCount(entry.target);
-            cio.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-
-    counters.forEach(function (el) {
-      cio.observe(el);
-    });
-  } else {
-    counters.forEach(function (el) {
-      el.textContent =
-        el.getAttribute("data-count") + (el.getAttribute("data-suffix") || "");
-    });
-  }
+  /* De optellende teller is bewust verwijderd. Hij animeerde onder meer naar
+     "1" en naar "4": beweging zonder inhoud, en het cijfer stond de eerste
+     seconde verkeerd. De eindwaarden staan letterlijk in de HTML, dus de
+     statenbalk klopt nu vanaf het eerste frame. De data-count-attributen
+     mogen blijven staan als documentatie van de bedoelde waarde. */
 
   /* ---------- FAQ accordion ---------- */
   document.querySelectorAll(".faq-item").forEach(function (item) {

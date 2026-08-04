@@ -29,15 +29,28 @@
   --font-body: "Inter", -apple-system, "Segoe UI", sans-serif;
   --font-mono: "IBM Plex Mono", "Courier New", monospace;
 
+  /* Kleine maten. Er stonden zeventien verschillende waarden onder 1rem,
+     waarvan vijf binnen 1,3 px van elkaar. Kies hieruit; verzin niets.
+     Regel: hoe kleiner het label, hoe ruimer de letterafstand. */
+  --label-xs: 0.62rem;   /* merkonderschrift, kleinste tags */
+  --label-s: 0.7rem;     /* tags, rubrieken, meta */
+  --label-m: 0.78rem;    /* sectienummers, doorlinks, formulierlabels */
+  --label-l: 0.8rem;     /* knoppen */
+  --text-xs: 0.85rem;    /* kleine lettertjes, voetnoten */
+  --text-s: 0.9375rem;   /* kleine lopende tekst in kaarten */
+
   /* Ritme */
   --container: 1180px;
+  /* Leesregel: ongeveer 70 tekens bij deze tekengrootte. Lopende tekst liep
+     91 tot 97 tekens breed, ver boven wat comfortabel leest. */
+  --measure: 36rem;
   --gutter: clamp(1.25rem, 4vw, 2.5rem);
   --section: clamp(4.5rem, 9vw, 7.5rem);
   --radius: 4px;
 
   /* Beweging */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --dur: 0.6s;
+  --dur-btn: 0.18s;   /* knoppen moeten reageren, niet nadenken */
 }
 
 /* ---------- Reset & basis ---------- */
@@ -51,6 +64,9 @@
 
 html {
   scroll-behavior: smooth;
+  /* De header is 5rem hoog en staat vast. Zonder deze marge landen
+     ankerlinks zoals diensten.html#boekhouding eronder. */
+  scroll-padding-top: 6.5rem;
   -webkit-text-size-adjust: 100%;
 }
 
@@ -109,6 +125,28 @@ h4 {
   letter-spacing: -0.01em;
 }
 
+/* Weesregels wegwerken. balance verdeelt korte blokken gelijkmatig en is
+   bedoeld voor koppen; pretty voorkomt losse eindwoorden in lopende tekst
+   zonder de meetkost van balance. Browsers die het niet kennen negeren het. */
+h1,
+h2,
+h3,
+h4,
+.display,
+.h2,
+.h3,
+.lead,
+blockquote {
+  text-wrap: balance;
+}
+
+p,
+li,
+figcaption,
+.calc-note {
+  text-wrap: pretty;
+}
+
 .display {
   font-size: clamp(2.75rem, 6.4vw, 4.75rem);
   line-height: 1.04;
@@ -134,7 +172,7 @@ h4 {
   align-items: center;
   gap: 0.75rem;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: var(--label-m);
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
@@ -194,7 +232,7 @@ h4 {
 
 .section-num {
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: var(--label-m);
   letter-spacing: 0.18em;
   color: var(--muted);
   white-space: nowrap;
@@ -218,14 +256,14 @@ h4 {
   gap: 0.6rem;
   padding: 0.95rem 1.9rem;
   font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: var(--label-l);
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   border: 1px solid transparent;
   border-radius: var(--radius);
-  transition: background var(--dur) var(--ease), color var(--dur) var(--ease),
-    border-color var(--dur) var(--ease), transform 0.25s var(--ease);
+  transition: background var(--dur-btn) var(--ease), color var(--dur-btn) var(--ease),
+    border-color var(--dur-btn) var(--ease), transform 0.2s var(--ease);
 }
 
 .btn:active {
@@ -283,22 +321,65 @@ h4 {
   transform: translateX(4px);
 }
 
+/* Tekstlink in lopende tekst. Deze opmaak stond 65 keer letterlijk
+   overgetikt in de HTML; wie de kleur ooit wil wijzigen, hoeft nu één
+   regel te raken in plaats van dertien bestanden. */
+.tekstlink {
+  color: var(--brass-2);
+  border-bottom: 1px solid rgba(138, 102, 36, 0.45);
+  transition: border-color 0.25s var(--ease);
+}
+
+.tekstlink:hover {
+  border-bottom-color: var(--brass-2);
+}
+
+/* Op de inktvlakken moet messing juist oplichten in plaats van verdiepen */
+.section--ink .tekstlink,
+.calc-result .tekstlink {
+  color: var(--brass-bright);
+  border-bottom-color: rgba(192, 154, 74, 0.45);
+}
+
+/* Variant voor plaatsnamen in een adressenlijst: de naam is de link, de
+   streep eronder markeert dat zonder de tekstkleur te breken. */
+.tekstlink--ink {
+  color: var(--ink);
+  font-weight: 600;
+  border-bottom-color: var(--brass);
+}
+
+.tekstlink--ink:hover {
+  color: var(--brass-2);
+}
+
 .link-more {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: var(--label-m);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--brass-2);
   border-bottom: 1px solid transparent;
-  transition: gap 0.3s var(--ease), border-color 0.3s var(--ease);
+  transition: border-color 0.3s var(--ease);
 }
 
 .link-more:hover {
-  gap: 0.85rem;
   border-color: var(--brass-2);
+}
+
+/* De pijl verschuift, niet de ruimte ernaast. gap animeren kost layout per
+   frame; .btn .arrow doet hetzelfde effect twintig regels hoger al goed. */
+.link-more > span {
+  transition: transform 0.3s var(--ease);
+}
+
+.link-more:hover > span,
+.office:hover .link-more > span,
+.news-card:hover .link-more > span {
+  transform: translateX(4px);
 }
 
 /* ---------- Header ---------- */
@@ -310,10 +391,12 @@ h4 {
   transition: background 0.4s var(--ease), box-shadow 0.4s var(--ease);
 }
 
+/* Geen backdrop-filter meer. Bij 92% dekking droeg de blur nog 8% aan het
+   beeld bij, terwijl hij permanent een GPU-laag kostte én van de header een
+   containing block maakte voor position:fixed — de oorzaak van de kapotte
+   menu-overlay. Een iets dekkendere achtergrond doet hetzelfde werk. */
 .site-header.is-scrolled {
-  background: rgba(247, 244, 237, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(247, 244, 237, 0.96);
   box-shadow: 0 1px 0 var(--line-soft);
 }
 
@@ -341,7 +424,7 @@ h4 {
 .brand small {
   display: block;
   font-family: var(--font-mono);
-  font-size: 0.58rem;
+  font-size: var(--label-xs);
   font-weight: 500;
   letter-spacing: 0.32em;
   text-transform: uppercase;
@@ -358,7 +441,7 @@ h4 {
   margin-right: 0.85rem;
   padding: 0.5rem 0.95rem;
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: var(--label-m);
   font-weight: 500;
   color: var(--ink);
   background: rgba(253, 252, 249, 0.75);
@@ -377,7 +460,7 @@ h4 {
 
 @media (max-width: 400px) {
   .header-tel {
-    font-size: 0.72rem;
+    font-size: var(--label-m);
     padding: 0.45rem 0.7rem;
     margin-right: 0.5rem;
   }
@@ -400,7 +483,7 @@ body.nav-open .header-tel {
 
 .site-nav a:not(.btn) {
   position: relative;
-  font-size: 0.92rem;
+  font-size: var(--text-s);
   font-weight: 500;
   color: var(--ink-3);
   padding-block: 0.4rem;
@@ -522,12 +605,12 @@ body.nav-open .nav-toggle span:nth-child(3) {
     visibility: visible;
   }
 
-  /* Belangrijk: backdrop-filter maakt van de header een containing block
-     voor position:fixed-kinderen. Zolang de blur actief is, positioneert
-     de menu-overlay zich tegen de header (5rem hoog) in plaats van tegen
-     het scherm, waardoor de links buiten hun achtergrond vallen. Bij een
-     open menu zetten we de blur daarom uit; de overlay dekt de header
-     toch volledig af. */
+  /* De blur die dit ooit noodzakelijk maakte is inmiddels weg uit de header
+     (backdrop-filter maakte er een containing block van voor
+     position:fixed, waardoor de menu-overlay tot 5rem kromp). De regel
+     blijft staan om twee redenen: de overlay dekt de header toch af, dus
+     een achtergrond eronder is zichtbaar vuil, en wie hier ooit opnieuw
+     een filter of transform zet, breekt de overlay niet meer. */
   body.nav-open .site-header,
   body.nav-open .site-header.is-scrolled {
     background: transparent;
@@ -625,8 +708,13 @@ body.nav-open .nav-toggle span:nth-child(3) {
   margin-block: 1.4rem 1.6rem;
 }
 
+/* Fraunces wordt geladen in cursief 400, niet in cursief 560. Zonder deze
+   regel synthetiseert de browser het gewicht van de h1 (560) en wordt de
+   cursief kunstmatig verzwaard. De 21 andere pagina's staan via .amp al
+   op 400; dit trekt de homepage gelijk. */
 .hero h1 em {
   font-style: italic;
+  font-weight: 400;
   color: var(--brass-2);
 }
 
@@ -645,7 +733,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 }
 
 .hero-aside p {
-  font-size: 0.98rem;
+  font-size: var(--text-s);
   color: var(--muted);
   max-width: 26em;
 }
@@ -661,7 +749,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
   display: block;
   font-family: var(--font-mono);
   font-style: normal;
-  font-size: 0.68rem;
+  font-size: var(--label-s);
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--brass);
@@ -709,7 +797,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
    verschenen daardoor als 11 px grijze mono in plaats van 32 px Fraunces. */
 .stat > span {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: var(--label-s);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--muted);
@@ -732,8 +820,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
   border: 1px solid var(--line-soft);
   border-radius: var(--radius);
   overflow: hidden;
-  transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease),
-    border-color 0.45s var(--ease);
+  transition: border-color 0.45s var(--ease);
 }
 
 .service-card::before {
@@ -747,10 +834,16 @@ body.nav-open .nav-toggle span:nth-child(3) {
   transition: transform 0.5s var(--ease);
 }
 
+/* Deze kaart is een <article> met losse links erin, geen klikzone. Ze tilde
+   wel op bij hover, waardoor de link wegschoof onder de cursor. De messing
+   lat blijft: die markeert waar je staat zonder iets te verplaatsen. */
 .service-card:hover {
-  transform: translateY(-5px);
   border-color: var(--line);
-  box-shadow: 0 24px 48px -24px rgba(16, 32, 47, 0.25);
+}
+
+.service-card:focus-within::before {
+  transform: scaleY(1);
+  transform-origin: top;
 }
 
 .service-card:hover::before {
@@ -760,7 +853,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 
 .service-card .num {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: var(--label-m);
   letter-spacing: 0.2em;
   color: var(--brass-text);
 }
@@ -771,7 +864,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 
 .service-card p {
   color: var(--muted);
-  font-size: 0.98rem;
+  font-size: var(--text-s);
   flex-grow: 1;
 }
 
@@ -795,7 +888,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 
 .service-detail .num {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: var(--label-m);
   letter-spacing: 0.2em;
   color: var(--brass-text);
   margin-bottom: 0.9rem;
@@ -819,7 +912,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 .check-list li {
   position: relative;
   padding-left: 1.9rem;
-  font-size: 0.98rem;
+  font-size: var(--text-s);
 }
 
 .check-list li::before {
@@ -871,7 +964,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 }
 
 .step p {
-  font-size: 0.95rem;
+  font-size: var(--text-s);
   color: var(--muted);
 }
 
@@ -913,7 +1006,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
   display: grid;
   place-items: center;
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: var(--label-m);
   letter-spacing: 0.08em;
   color: var(--brass-2);
   background: var(--paper);
@@ -928,7 +1021,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 
 .tl-item p {
   color: var(--muted);
-  max-width: 46em;
+  max-width: var(--measure);
 }
 
 /* ---------- Kantoren ---------- */
@@ -944,7 +1037,8 @@ body.nav-open .nav-toggle span:nth-child(3) {
   background: var(--white);
   border: 1px solid var(--line-soft);
   border-radius: var(--radius);
-  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease),
+    border-color 0.4s var(--ease);
 }
 
 .office:hover {
@@ -952,9 +1046,16 @@ body.nav-open .nav-toggle span:nth-child(3) {
   box-shadow: 0 20px 40px -24px rgba(16, 32, 47, 0.22);
 }
 
+/* Een inktschaduw op een inktondergrond is onzichtbaar. In de donkere
+   secties moet de rand de hover dragen. */
+.section--ink .office:hover {
+  border-color: rgba(192, 154, 74, 0.45);
+  box-shadow: 0 18px 36px -20px rgba(0, 0, 0, 0.5);
+}
+
 .office .tag {
   font-family: var(--font-mono);
-  font-size: 0.66rem;
+  font-size: var(--label-s);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--brass-text);
@@ -966,7 +1067,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 }
 
 .office p {
-  font-size: 0.94rem;
+  font-size: var(--text-s);
   color: var(--muted);
   line-height: 1.55;
 }
@@ -1063,11 +1164,6 @@ body.nav-open .nav-toggle span:nth-child(3) {
   object-fit: cover;
   object-position: center 20%;
   display: block;
-  transition: transform 0.8s var(--ease);
-}
-
-.portret:hover img {
-  transform: scale(1.03);
 }
 
 .portret figcaption {
@@ -1083,7 +1179,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 .portret figcaption small {
   display: block;
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: var(--label-s);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--brass-bright);
@@ -1101,7 +1197,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 .portrait-card figcaption {
   margin-top: 1.75rem;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: var(--label-m);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--brass-bright);
@@ -1139,7 +1235,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 }
 
 .value p {
-  font-size: 0.94rem;
+  font-size: var(--text-s);
   color: var(--muted);
 }
 
@@ -1226,7 +1322,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 .news-card time,
 .news-card .cat {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: var(--label-s);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--muted);
@@ -1255,7 +1351,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 }
 
 .news-card p {
-  font-size: 0.94rem;
+  font-size: var(--text-s);
   color: var(--muted);
   flex-grow: 1;
 }
@@ -1271,7 +1367,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
   display: flex;
   gap: 1.5rem;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: var(--label-m);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--muted);
@@ -1288,7 +1384,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 }
 
 .prose {
-  max-width: 46rem;
+  max-width: var(--measure);
 }
 
 .prose > * + * {
@@ -1344,14 +1440,14 @@ body.nav-open .nav-toggle span:nth-child(3) {
   background: var(--paper-2);
   border-left: 2px solid var(--brass);
   border-radius: var(--radius);
-  font-size: 0.95rem;
+  font-size: var(--text-s);
   color: var(--muted);
 }
 
 .prose table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.95rem;
+  font-size: var(--text-s);
 }
 
 .prose th,
@@ -1363,7 +1459,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 
 .prose th {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: var(--label-s);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--brass-2);
@@ -1389,7 +1485,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 
 .faq-q .idx {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: var(--label-m);
   letter-spacing: 0.12em;
   color: var(--brass-text);
   min-width: 2.2rem;
@@ -1448,7 +1544,8 @@ body.nav-open .nav-toggle span:nth-child(3) {
 
 .faq-a p,
 .faq-a ul {
-  max-width: 44em;
+  /* De inspringing van 3,7rem gaat van de leesbreedte af */
+  max-width: calc(var(--measure) + 3.7rem);
   color: var(--muted);
   padding-left: 3.7rem;
 }
@@ -1499,7 +1596,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 }
 
 .factor p {
-  font-size: 0.94rem;
+  font-size: var(--text-s);
   color: var(--muted);
 }
 
@@ -1528,14 +1625,14 @@ body.nav-open .nav-toggle span:nth-child(3) {
 .calc-field > label,
 .calc-legend {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: var(--label-s);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted);
 }
 
 .calc-field .hint {
-  font-size: 0.82rem;
+  font-size: var(--text-xs);
   color: var(--muted);
   line-height: 1.5;
 }
@@ -1550,7 +1647,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 .calc-input .suffix {
   position: absolute;
   font-family: var(--font-mono);
-  font-size: 0.95rem;
+  font-size: var(--text-s);
   color: var(--brass-2);
   pointer-events: none;
 }
@@ -1612,7 +1709,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 .calc-toggle label {
   padding: 0.8rem 1rem;
   text-align: center;
-  font-size: 0.95rem;
+  font-size: var(--text-s);
   color: var(--muted);
   background: var(--paper);
   cursor: pointer;
@@ -1650,7 +1747,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 
 .calc-result .label {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: var(--label-s);
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--brass-bright);
@@ -1667,7 +1764,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 }
 
 .calc-sub {
-  font-size: 0.92rem;
+  font-size: var(--text-s);
   color: rgba(247, 244, 237, 0.6);
 }
 
@@ -1698,7 +1795,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem 1.2rem;
-  font-size: 0.78rem;
+  font-size: var(--label-m);
   color: rgba(247, 244, 237, 0.6);
 }
 
@@ -1727,7 +1824,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
   gap: 1rem;
   padding: 0.8rem 0;
   border-bottom: 1px solid var(--line-paper);
-  font-size: 0.95rem;
+  font-size: var(--text-s);
 }
 
 .calc-row b {
@@ -1739,7 +1836,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 
 .calc-row small {
   display: block;
-  font-size: 0.78rem;
+  font-size: var(--label-m);
   color: rgba(247, 244, 237, 0.45);
   margin-top: 0.1rem;
 }
@@ -1760,7 +1857,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
   background: rgba(192, 154, 74, 0.13);
   border-left: 2px solid var(--brass-bright);
   border-radius: var(--radius);
-  font-size: 0.9rem;
+  font-size: var(--text-s);
   color: rgba(247, 244, 237, 0.85);
 }
 
@@ -1770,7 +1867,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 
 .calc-note {
   margin-top: 1.5rem;
-  font-size: 0.85rem;
+  font-size: var(--text-xs);
   color: var(--muted);
   line-height: 1.6;
 }
@@ -1803,7 +1900,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 
 .vergelijk-kaart .tag {
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: var(--label-xs);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--brass);
@@ -1821,7 +1918,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 }
 
 .vergelijk-kaart .onder {
-  font-size: 0.82rem;
+  font-size: var(--text-xs);
   color: var(--muted);
 }
 
@@ -1836,7 +1933,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
   gap: 0.75rem;
   padding: 0.55rem 0;
   border-bottom: 1px solid var(--line-soft);
-  font-size: 0.88rem;
+  font-size: var(--text-xs);
   color: var(--muted);
 }
 
@@ -1857,7 +1954,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
   background: var(--ink);
   border-radius: var(--radius);
   color: rgba(247, 244, 237, 0.82);
-  font-size: 0.95rem;
+  font-size: var(--text-s);
 }
 
 .vergelijk-oordeel b {
@@ -1886,7 +1983,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 .calc-assumptions ul {
   display: grid;
   gap: 0.5rem;
-  font-size: 0.92rem;
+  font-size: var(--text-s);
   color: var(--muted);
 }
 
@@ -1930,7 +2027,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 
 .contact-block .label {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: var(--label-s);
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--brass-text);
@@ -1977,7 +2074,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
   font-family: var(--font-mono);
   /* 0,68rem is ongeveer 10,9 px — te klein voor hoofdletters met veel
      letterafstand. Iets groter en met minder spatiëring leest vlotter. */
-  font-size: 0.78rem;
+  font-size: var(--label-m);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--muted);
@@ -1992,7 +2089,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 .field select,
 .field textarea {
   font: inherit;
-  font-size: 0.98rem;
+  font-size: var(--text-s);
   color: var(--text);
   background: var(--paper);
   border: 1px solid var(--line);
@@ -2022,7 +2119,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 
 .field .error-msg {
   display: none;
-  font-size: 0.8rem;
+  font-size: var(--label-l);
   color: var(--err);
 }
 
@@ -2041,7 +2138,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 
 .form-footer small {
   color: var(--muted);
-  font-size: 0.82rem;
+  font-size: var(--text-xs);
   max-width: 28em;
 }
 
@@ -2050,7 +2147,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
   display: none;
   padding: 1rem 1.25rem;
   border-radius: var(--radius);
-  font-size: 0.95rem;
+  font-size: var(--text-s);
 }
 
 .form-status.is-ok {
@@ -2087,11 +2184,6 @@ body.nav-open .nav-toggle span:nth-child(3) {
   border-radius: var(--radius);
   overflow: hidden;
   filter: grayscale(1) sepia(0.14) contrast(0.95);
-  transition: filter 0.5s var(--ease);
-}
-
-.map-frame:hover {
-  filter: grayscale(0.2) sepia(0.02);
 }
 
 .map-frame iframe {
@@ -2124,7 +2216,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 .site-footer {
   background: var(--ink);
   color: rgba(247, 244, 237, 0.68);
-  font-size: 0.94rem;
+  font-size: var(--text-s);
 }
 
 .footer-main {
@@ -2154,14 +2246,14 @@ body.nav-open .nav-toggle span:nth-child(3) {
 .footer-brand p {
   margin-top: 1rem;
   max-width: 26em;
-  font-size: 0.9rem;
+  font-size: var(--text-s);
   color: rgba(247, 244, 237, 0.55);
 }
 
 .footer-col h4 {
   color: var(--paper);
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: var(--label-s);
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
@@ -2202,7 +2294,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 0.75rem 2rem;
-  font-size: 0.82rem;
+  font-size: var(--text-xs);
   color: rgba(247, 244, 237, 0.45);
 }
 
@@ -2221,11 +2313,21 @@ body.nav-open .nav-toggle span:nth-child(3) {
    in de head gezet. Zonder die voorwaarde blijft de volledige pagina op
    opacity 0 staan zodra main.js faalt of geblokkeerd wordt — inclusief het
    contactformulier, dat zelf class="form reveal" draagt. */
+/* Kort en klein gehouden: dit is een accent bij het lezen, geen voorstelling.
+   De vertraging per blok is bewust weg — gestapelde vertragingen laten een
+   pagina traag aanvoelen zonder dat iemand kan zeggen waarom. */
 .js .reveal {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
-  transition-delay: var(--d, 0s);
+  transform: translateY(8px);
+  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+}
+
+/* Een blok waar een ankerlink naartoe springt moet er staan, ook wanneer
+   de waarnemer het nog niet zag. */
+.js .reveal:target {
+  opacity: 1;
+  transform: none;
+  transition: none;
 }
 
 .reveal.is-visible {
@@ -2281,7 +2383,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
   gap: 0.6rem 1.6rem;
   margin-top: 2rem;
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: var(--label-m);
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
@@ -2307,7 +2409,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 
 .error-voet {
   margin-top: 2.75rem;
-  font-size: 0.85rem;
+  font-size: var(--text-xs);
   color: rgba(247, 244, 237, 0.5);
 }
 
@@ -2454,12 +2556,16 @@ body.nav-open .nav-toggle span:nth-child(3) {
     scroll-behavior: auto;
   }
 
+  /* De vertragingen moeten mee naar nul. Blijft alleen de duur weg, dan
+     opent het mobiele menu in zeven harde sprongen tot 0,44 s. */
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+    animation-delay: 0s !important;
     transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
   }
 
   .js .reveal,
