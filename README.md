@@ -12,7 +12,11 @@ Volledig statische site: HTML, CSS en vanilla JavaScript. Geen build-stap, geen 
 | Diensten | `diensten.html` (ankers: `#opstart`, `#boekhouding`, `#fiscaliteit`, `#advies`) |
 | Starters | `starters.html` |
 | Tarieven | `tarieven.html` |
-| Simulatie netto-inkomen | `netto-berekenen.html` (menulabel: *Simulatie*) |
+| Tools (hub) | `tools.html` (menulabel: *Tools*) |
+| — Btw berekenen | `btw-berekenen.html` |
+| — Kilometervergoeding | `kilometervergoeding.html` |
+| — Netto-inkomen | `netto-berekenen.html` |
+| — Eenmanszaak of vennootschap | `eenmanszaak-of-vennootschap.html` |
 | Over ons | `over-ons.html` |
 | Kantoren per stad | `boekhouder-brugge/-torhout/-oostende/-vichte.html` |
 | Verzorgingsgebied | `boekhouder-zedelgem.html`, `boekhouder-oostkamp.html` |
@@ -22,7 +26,7 @@ Volledig statische site: HTML, CSS en vanilla JavaScript. Geen build-stap, geen 
 | Privacy & cookies | `privacy.html` |
 | 404 | `404.html` |
 
-Gedeelde bestanden: `css/style.css` (volledig design system), `js/main.js` (navigatie, animaties, accordion, formulier), `js/netto-berekenen.js` (berekening netto-inkomen).
+Gedeelde bestanden: `css/style.css` (volledig design system) en `js/main.js` (navigatie, animaties, accordion, formulier). Elke rekenhulp heeft daarnaast zijn eigen script met dezelfde naam als de pagina.
 
 ### Afbeeldingen in `assets/`
 
@@ -140,9 +144,18 @@ var FORM_ENDPOINT = "https://api.web3forms.com/submit";
 
 Meer is er niet nodig: het formulier schakelt dan automatisch over van `mailto:` naar echte verzending, mét bevestigingsboodschap, foutafhandeling en een reeds ingebouwde honeypot tegen spam. Bij Web3Forms voegt u de access key toe als extra veld in `contact.html`.
 
-## De simulatietool — jaarlijks bijwerken
+## De rekenhulpen — jaarlijks bijwerken
 
-`netto-berekenen.html` berekent wat een zelfstandige netto overhoudt. Alle wettelijke parameters staan **bovenaan `js/netto-berekenen.js`** in één blok, zodat bijwerken enkele minuten kost.
+Er zijn vier rekenhulpen. Elke tool heeft zijn wettelijke parameters **bovenaan het bijbehorende JS-bestand** in één blok staan, zodat bijwerken enkele minuten kost.
+
+| Tool | Script | Bevat parameters die wijzigen |
+|---|---|---|
+| Btw berekenen | `js/btw-berekenen.js` | nee — tarieven staan als knoppen in de HTML |
+| Kilometervergoeding | `js/kilometervergoeding.js` | **ja, per kwartaal** |
+| Netto-inkomen | `js/netto-berekenen.js` | ja, jaarlijks |
+| Eenmanszaak of vennootschap | `js/eenmanszaak-of-vennootschap.js` | ja, jaarlijks |
+
+> **Let op bij de kilometervergoeding:** de maximale vergoeding voor werknemers wordt sinds 2026 **per kwartaal** geïndexeerd, het forfait voor zelfstandigen jaarlijks. Dat is de enige tool die vaker dan jaarlijks nagekeken moet worden. De datum staat zichtbaar op de pagina bij "Geldig vanaf".
 
 Momenteel ingesteld op **inkomstenjaar 2026 / aanslagjaar 2027**:
 
@@ -154,6 +167,12 @@ Momenteel ingesteld op **inkomstenjaar 2026 / aanslagjaar 2027**:
 | Beheerskosten | 4% |
 | Belastingschijven | 25% / 40% / 45% / 50% vanaf €16.720 / €29.510 / €51.070 |
 | Belastingvrije som | €11.180 |
+| Vennootschapsbelasting | 25%, verlaagd 20% op eerste €100.000 |
+| Minimumbezoldiging verlaagd tarief | €50.000 bruto (was €45.000 tot 2025) |
+| Km-vergoeding zelfstandige | €0,4449 per km |
+| Km-vergoeding werknemer | €0,4327 per km |
+| Fietsvergoeding | €0,36 per km |
+| Btw-tarieven | 21% / 12% / 6% / 0% |
 
 Wat te doen bij een nieuw jaar: vervang de cijfers in het `P`-object in `js/netto-berekenen.js`, pas het jaartal aan in de sectie *"Waarop is deze berekening gebaseerd?"* in `netto-berekenen.html`, en werk de meta-description bij.
 
@@ -166,7 +185,7 @@ De berekening houdt correct rekening met de aftrekbaarheid van de sociale bijdra
 - [ ] **Nieuwsartikels** — drie voorbeeldartikels (Peppol, deadlines 2026, bijberoep) zijn inhoudelijk correct opgesteld maar generiek; laat ze inhoudelijk valideren door Ides.
 - [ ] **Extra foto's** — een beeld van het kantoor of van Ides aan het werk zou de dienstenpagina's versterken. Bewust géén stockfoto's.
 - [ ] **Contactformulier** — werkt nu via `mailto:`. Zie het hoofdstuk hierboven om over te schakelen op echte verzending (één regel in `js/main.js`).
-- [ ] **Simulatietool** — laat de gebruikte parameters valideren door Ides en zet de update in de agenda voor januari.
+- [ ] **Rekenhulpen** — laat de gebruikte parameters valideren door Ides. Zet de jaarlijkse update in de agenda voor januari, en de kilometervergoeding elk kwartaal.
 - [ ] **Kaart** — Google Maps-embed op de contactpagina wijst naar de zetel in Brugge.
 
 ## SEO
