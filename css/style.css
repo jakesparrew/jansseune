@@ -695,6 +695,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
   font-family: var(--font-display);
   font-size: clamp(2rem, 3.6vw, 2.9rem);
   font-weight: 560;
+  font-variant-numeric: tabular-nums;
   color: var(--ink);
   line-height: 1.1;
 }
@@ -703,7 +704,10 @@ body.nav-open .nav-toggle span:nth-child(3) {
   font-size: 0.8em;
 }
 
-.stat span {
+/* Het label is een DIRECT kind van .stat. Zonder de > raakte deze regel ook
+   het cijfer, dat in de HTML binnen de <b> staat: de vier kerncijfers
+   verschenen daardoor als 11 px grijze mono in plaats van 32 px Fraunces. */
+.stat > span {
   font-family: var(--font-mono);
   font-size: 0.7rem;
   letter-spacing: 0.16em;
@@ -969,6 +973,16 @@ body.nav-open .nav-toggle span:nth-child(3) {
 
 .section--ink .office .tag {
   color: var(--brass-bright);
+}
+
+/* --brass-2 is bedoeld voor licht papier en haalt op de inktkleur maar
+   3,16:1. In de donkere secties moet messing juist oplichten. */
+.section--ink .link-more {
+  color: var(--brass-bright);
+}
+
+.section--ink .link-more:hover {
+  border-color: var(--brass-bright);
 }
 
 .section--ink .office {
